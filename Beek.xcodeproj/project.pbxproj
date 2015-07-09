@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8F009FED1B4EBDF6005AA0F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F009FEC1B4EBDF6005AA0F1 /* AppDelegate.swift */; };
+		8F009FEF1B4EBDF6005AA0F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F009FEE1B4EBDF6005AA0F1 /* ViewController.swift */; };
+		8F009FF21B4EBDF6005AA0F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */; };
+		8F009FF41B4EBDF6005AA0F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F009FF31B4EBDF6005AA0F1 /* Images.xcassets */; };
+		8F009FF71B4EBDF6005AA0F1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F009FF51B4EBDF6005AA0F1 /* LaunchScreen.xib */; };
+		8F00A0031B4EBDF6005AA0F1 /* BeekTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0021B4EBDF6005AA0F1 /* BeekTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F009FFD1B4EBDF6005AA0F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F009FDF1B4EBDF6005AA0F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F009FE61B4EBDF6005AA0F1;
+			remoteInfo = Beek;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8F009FE71B4EBDF6005AA0F1 /* Beek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beek.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F009FEB1B4EBDF6005AA0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F009FEC1B4EBDF6005AA0F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8F009FEE1B4EBDF6005AA0F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8F009FF11B4EBDF6005AA0F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8F009FF31B4EBDF6005AA0F1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8F009FF61B4EBDF6005AA0F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		8F009FFC1B4EBDF6005AA0F1 /* BeekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F00A0011B4EBDF6005AA0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F00A0021B4EBDF6005AA0F1 /* BeekTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeekTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8F009FE41B4EBDF6005AA0F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F009FF91B4EBDF6005AA0F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8F009FDE1B4EBDF6005AA0F1 = {
+			isa = PBXGroup;
+			children = (
+				8F009FE91B4EBDF6005AA0F1 /* Beek */,
+				8F009FFF1B4EBDF6005AA0F1 /* BeekTests */,
+				8F009FE81B4EBDF6005AA0F1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8F009FE81B4EBDF6005AA0F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F009FE71B4EBDF6005AA0F1 /* Beek.app */,
+				8F009FFC1B4EBDF6005AA0F1 /* BeekTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8F009FE91B4EBDF6005AA0F1 /* Beek */ = {
+			isa = PBXGroup;
+			children = (
+				8F009FEC1B4EBDF6005AA0F1 /* AppDelegate.swift */,
+				8F009FEE1B4EBDF6005AA0F1 /* ViewController.swift */,
+				8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */,
+				8F009FF31B4EBDF6005AA0F1 /* Images.xcassets */,
+				8F009FF51B4EBDF6005AA0F1 /* LaunchScreen.xib */,
+				8F009FEA1B4EBDF6005AA0F1 /* Supporting Files */,
+			);
+			path = Beek;
+			sourceTree = "<group>";
+		};
+		8F009FEA1B4EBDF6005AA0F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F009FEB1B4EBDF6005AA0F1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F009FFF1B4EBDF6005AA0F1 /* BeekTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F00A0021B4EBDF6005AA0F1 /* BeekTests.swift */,
+				8F00A0001B4EBDF6005AA0F1 /* Supporting Files */,
+			);
+			path = BeekTests;
+			sourceTree = "<group>";
+		};
+		8F00A0001B4EBDF6005AA0F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F00A0011B4EBDF6005AA0F1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8F009FE61B4EBDF6005AA0F1 /* Beek */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F00A0061B4EBDF6005AA0F1 /* Build configuration list for PBXNativeTarget "Beek" */;
+			buildPhases = (
+				8F009FE31B4EBDF6005AA0F1 /* Sources */,
+				8F009FE41B4EBDF6005AA0F1 /* Frameworks */,
+				8F009FE51B4EBDF6005AA0F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Beek;
+			productName = Beek;
+			productReference = 8F009FE71B4EBDF6005AA0F1 /* Beek.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8F009FFB1B4EBDF6005AA0F1 /* BeekTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F00A0091B4EBDF6005AA0F1 /* Build configuration list for PBXNativeTarget "BeekTests" */;
+			buildPhases = (
+				8F009FF81B4EBDF6005AA0F1 /* Sources */,
+				8F009FF91B4EBDF6005AA0F1 /* Frameworks */,
+				8F009FFA1B4EBDF6005AA0F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8F009FFE1B4EBDF6005AA0F1 /* PBXTargetDependency */,
+			);
+			name = BeekTests;
+			productName = BeekTests;
+			productReference = 8F009FFC1B4EBDF6005AA0F1 /* BeekTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8F009FDF1B4EBDF6005AA0F1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Mayank Jain";
+				TargetAttributes = {
+					8F009FE61B4EBDF6005AA0F1 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					8F009FFB1B4EBDF6005AA0F1 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 8F009FE61B4EBDF6005AA0F1;
+					};
+				};
+			};
+			buildConfigurationList = 8F009FE21B4EBDF6005AA0F1 /* Build configuration list for PBXProject "Beek" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8F009FDE1B4EBDF6005AA0F1;
+			productRefGroup = 8F009FE81B4EBDF6005AA0F1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8F009FE61B4EBDF6005AA0F1 /* Beek */,
+				8F009FFB1B4EBDF6005AA0F1 /* BeekTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F009FE51B4EBDF6005AA0F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F009FF21B4EBDF6005AA0F1 /* Main.storyboard in Resources */,
+				8F009FF71B4EBDF6005AA0F1 /* LaunchScreen.xib in Resources */,
+				8F009FF41B4EBDF6005AA0F1 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F009FFA1B4EBDF6005AA0F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F009FE31B4EBDF6005AA0F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F009FEF1B4EBDF6005AA0F1 /* ViewController.swift in Sources */,
+				8F009FED1B4EBDF6005AA0F1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F009FF81B4EBDF6005AA0F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F00A0031B4EBDF6005AA0F1 /* BeekTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F009FFE1B4EBDF6005AA0F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F009FE61B4EBDF6005AA0F1 /* Beek */;
+			targetProxy = 8F009FFD1B4EBDF6005AA0F1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F009FF11B4EBDF6005AA0F1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8F009FF51B4EBDF6005AA0F1 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F009FF61B4EBDF6005AA0F1 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8F00A0041B4EBDF6005AA0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F00A0051B4EBDF6005AA0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F00A0071B4EBDF6005AA0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Beek/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8F00A0081B4EBDF6005AA0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Beek/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8F00A00A1B4EBDF6005AA0F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BeekTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Beek.app/Beek";
+			};
+			name = Debug;
+		};
+		8F00A00B1B4EBDF6005AA0F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BeekTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Beek.app/Beek";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8F009FE21B4EBDF6005AA0F1 /* Build configuration list for PBXProject "Beek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F00A0041B4EBDF6005AA0F1 /* Debug */,
+				8F00A0051B4EBDF6005AA0F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F00A0061B4EBDF6005AA0F1 /* Build configuration list for PBXNativeTarget "Beek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F00A0071B4EBDF6005AA0F1 /* Debug */,
+				8F00A0081B4EBDF6005AA0F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8F00A0091B4EBDF6005AA0F1 /* Build configuration list for PBXNativeTarget "BeekTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F00A00A1B4EBDF6005AA0F1 /* Debug */,
+				8F00A00B1B4EBDF6005AA0F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8F009FDF1B4EBDF6005AA0F1 /* Project object */;
+}
