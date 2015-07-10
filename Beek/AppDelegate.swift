@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Parse.setApplicationId("75sRxIv4FG78YmOFLZuMn5hycdWfyPELYi1NF4Va", clientKey: "fJdZ5DWAVD5CVtPeGlUU1dlvW78dVRhwhkRVthcB")
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+    
+        var storyboardId = (PFUser.currentUser() != nil) ? "feedNavigationController" : "loginViewController";
+        
+        var viewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier(storyboardId) as! UIViewController
+        
+        self.window!.rootViewController = viewController;
+        self.window!.makeKeyAndVisible();
+        
         return true
     }
 
