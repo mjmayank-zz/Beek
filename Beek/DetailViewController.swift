@@ -8,19 +8,18 @@
 
 import Foundation
 import UIKit
-import Parse
 
 class DetailViewController : UIViewController {
     
-    var detailObject : PFObject!
+    var detailObject : PostModel!
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = detailObject.objectForKey("title") as? String
-        bodyLabel.text = detailObject.objectForKey("body") as? String
+        titleLabel.text = detailObject.title
+        bodyLabel.text = detailObject.body
     }
     
 }

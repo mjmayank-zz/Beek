@@ -8,31 +8,38 @@
 
 import Foundation
 import UIKit
-import Parse
+import WebKit
 
 class WebViewController : UIViewController {
-    var detailObject : PFObject!
-    
-    @IBOutlet var webView: UIWebView!
+    var detailObject : PostModel!
+    private var webView: WKWebView?
+
+//    @IBOutlet var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println(detailObject)
-        var fullURL = "http://"
-        if let url = detailObject.objectForKey("url") as? String{
-            fullURL += url
-            println(fullURL)
+        webView = WKWebView()
+        
+        view = webView
+        
+        var fullURL:String = ""
+        if let url = detailObject.url{
+            fullURL = url
+        }
+        let endIndex = advance(fullURL.startIndex, 4)
+        var start = fullURL.substringToIndex(endIndex)
+        if(start == "http"){
+            var url = NSURL(string: fullURL)
+            var requestObj = NSURLRequest(URL: url!)
+            self.webView!.loadRequest(requestObj)
         }
         else{
-            fullURL += "google.com"
+            //how to launch an app
+            let myURL = NSURL(string: fullURL)
+            UIApplication.sharedApplication().openURL(myURL!)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
-        var url = NSURL(string: fullURL)
-        var requestObj = NSURLRequest(URL: url!)
-        self.webView.loadRequest(requestObj)
         
-        //how to launch an app
-        //        let myURL = NSURL(string: "flixster://")
-        //        UIApplication.sharedApplication().openURL(myURL!)
     }
 }
     

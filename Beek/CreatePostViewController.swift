@@ -56,16 +56,9 @@ class CreatePostViewController: UIViewController, UITextViewDelegate{
         var body = bodyTextView.text
         var title = titleTextField.text
         var url = urlTextField.text
-        var point = PFGeoPoint(latitude:manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
-        var object = PFObject(className: "Post")
-        if(url != ""){
-            object.setValue(url, forKey: "url")
-        }
-        object.setObject(body, forKey: "body")
-        object.setObject(title, forKey: "title")
-        object.setObject(point, forKey: "location")
-        object.setObject(PFUser.currentUser()!, forKey: "author")
-        object.saveInBackgroundWithBlock(nil)
+        var location = manager.location
+        var object = PostModel(title: title, body: body, url: url, authorID: PFUser.currentUser()!.objectId!, location: location)
+        object.saveInBackground()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     @IBAction func cancelButtonPressed(sender: AnyObject) {

@@ -17,8 +17,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var searchResults : [PFObject]?
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
+    var dataSource = FoursquareView()
     
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var foursquareCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        foursquareCollectionView.dataSource = dataSource
+        foursquareCollectionView.delegate = dataSource
         
         manager.delegate = self
         if CLLocationManager.authorizationStatus() == .NotDetermined {
@@ -69,7 +73,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
         var query = PFQuery(className: "Post")
         var point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        query.whereKey("location", nearGeoPoint: point, withinMiles:10.0)
+        query.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
         
         query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
             if(error != nil){
@@ -78,13 +82,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             else{
                 if(results != nil){
                     self.searchResults = results as? [PFObject]
-//                    println(results)
-//                    println(searchResults)
                 }
             }
             self.collectionView.reloadData()
         }
-//        println(object)
     }
     
     func collectionView(collectionView: UICollectionView,
@@ -114,7 +115,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-//        println(locations[0])
         var newLocation = locations[0] as! CLLocation
         if(newLocation.distanceFromLocation(oldLocation) > 100){
             oldLocation = newLocation
@@ -126,13 +126,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toDetail"{
             var destVC = segue.destinationViewController as! DetailViewController
-            destVC.detailObject = self.searchResults![collectionView.indexPathsForSelectedItems()[0].row]
+            destVC.detailObject = PostModel(object:self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
             println("todetail")
             
         }
         else if(segue.identifier == "toWebView"){
             var destVC = segue.destinationViewController as! WebViewController
-            destVC.detailObject = self.searchResults![collectionView.indexPathsForSelectedItems()[0].row]
+            destVC.detailObject = PostModel(object: self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
             println("toWebView")
         }
     }
