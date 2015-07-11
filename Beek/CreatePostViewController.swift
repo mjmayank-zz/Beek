@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 import Parse
 
-class CreatePostViewController: UIViewController, UITextViewDelegate{
+class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewDelegate{
     @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var mapView: MKMapView!
@@ -25,6 +25,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate{
         super.viewDidLoad()
         
         self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: (NSKeyValueObservingOptions.New|NSKeyValueObservingOptions.Old), context: nil)
+        self.mapView.delegate = self
         
         self.bodyTextView.delegate = self
         
@@ -42,6 +43,12 @@ class CreatePostViewController: UIViewController, UITextViewDelegate{
             region.span = span;
             
             self.mapView.setRegion(region, animated: true)
+            
+            var annotation = MKPointAnnotation()
+            annotation.coordinate = self.mapView.userLocation.coordinate
+//            annotation.title = "Title" //You can set the subtitle too
+            self.mapView.addAnnotation(annotation)
+            
             self.mapView.userLocation.removeObserver(self, forKeyPath: "location")
         }
     }
@@ -71,6 +78,32 @@ class CreatePostViewController: UIViewController, UITextViewDelegate{
     
     func textViewDidChange(textView: UITextView) {
         self.bodyPlaceholderLabel.hidden = textView.text != ""
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        var pin = self.mapView.dequeueReusableAnnotationViewWithIdentifier("myPin")
+        if(pin == nil) {
+            pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myPin")
+        } else {
+            pin.annotation = annotation;
+        }
+        
+        var newPin = pin as! MKPinAnnotationView
+        
+        newPin.animatesDrop = true;
+        newPin.draggable = true;
+        
+        return newPin;
+    }
+    
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if (newState == MKAnnotationViewDragState.Ending)
+        {
+            var droppedAt = view.annotation.coordinate
+            print("Pin dropped at %f,%f")
+            print(droppedAt.latitude)
+            print(droppedAt.longitude);
+        }
     }
     
 }

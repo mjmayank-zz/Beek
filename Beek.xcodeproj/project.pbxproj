@@ -158,7 +158,6 @@
 		8F009FE91B4EBDF6005AA0F1 /* Beek */ = {
 			isa = PBXGroup;
 			children = (
-				8F3BF6BE1B51650B00F56232 /* PostModel.swift */,
 				8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */,
 				8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */,
 				8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */,
@@ -169,6 +168,7 @@
 				8F009FEE1B4EBDF6005AA0F1 /* ViewController.swift */,
 				8F00A0431B501433005AA0F1 /* WebViewController.swift */,
 				8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */,
+				8F3BF6BE1B51650B00F56232 /* PostModel.swift */,
 				8F00A0351B4EE49C005AA0F1 /* DetailViewController.swift */,
 				8F00A03E1B4F56F6005AA0F1 /* LoginViewController.swift */,
 				8F00A0311B4EE0DB005AA0F1 /* CreatePostViewController.swift */,
