@@ -18,7 +18,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
     var dataSource = FoursquareView()
+
     
+    @IBOutlet var searchTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var foursquareCollectionView: UICollectionView!
     
@@ -40,6 +42,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.refreshControl = UIRefreshControl()
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.collectionView.addSubview(self.refreshControl)
+        
+        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -96,6 +100,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                 cell.bodyLabel.text = items[indexPath.row].objectForKey("body") as? String
                 cell.object = items[indexPath.row]
             }
+            if(indexPath.row % 2 == 0){
+                cell.backgroundImage.image = UIImage(named: "baja_fresh.png")
+            }
+            else{
+                cell.backgroundImage.image = UIImage(named: "teoco.png")
+
+            }
             //            var object = PFObject(className: "Venue")
             //            object.setValue(venueInfo!["name"] as? String, forKey: "name")
             //            object.setValue(venueInfo!["id"] as? String, forKey: "foursquareID")
@@ -123,17 +134,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.searchTextField.resignFirstResponder()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println(segue.identifier)
         if segue.identifier == "toDetail"{
             var destVC = segue.destinationViewController as! DetailViewController
             destVC.detailObject = PostModel(object:self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
-            println("todetail")
-            
         }
         else if(segue.identifier == "toWebView"){
             var destVC = segue.destinationViewController as! WebViewController
             destVC.detailObject = PostModel(object: self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
-            println("toWebView")
+        }
+        
+        else if(segue.identifier == "searched"){
+            var search = PFObject(className: "Search")
+            search.setObject(self.searchTextField.text, forKey: "searchValue")
+            search.setObject(PFUser.currentUser()!, forKey: "user")
+            var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
+            search.setObject(geoPoint, forKey: "location")
+            search.saveInBackgroundWithBlock(nil)
+            
+            self.searchTextField.resignFirstResponder()
+            var destVC = segue.destinationViewController as! SearchWebViewController
+            destVC.query = self.searchTextField.text
         }
     }
     
@@ -142,5 +168,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
 class foursquareCell : UICollectionViewCell{
     @IBOutlet var label: UILabel!
     @IBOutlet var bodyLabel: UILabel!
+    @IBOutlet var backgroundImage: UIImageView!
     var object : PFObject!
 }

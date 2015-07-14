@@ -16,11 +16,21 @@ class LoginViewController : UIViewController{
     @IBOutlet var confirmPasswordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.usernameTextField.becomeFirstResponder()
     }
     
     @IBAction func loginButtonPressed(sender: AnyObject) {
         PFUser.logInWithUsernameInBackground(usernameTextField.text, password: passwordTextField.text) { (user:PFUser?, error:NSError?) -> Void in
-            self.performSegueWithIdentifier("toFeed", sender: self)
+            if(error == nil){
+                self.performSegueWithIdentifier("toFeed", sender: self)
+            }
+            else{
+                println(error)
+                var alert = UIAlertController(title: "Error", message: "Try doing something else", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
     
