@@ -18,6 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
     var dataSource = FoursquareView()
+    var cache = NSCache()
 
     
     @IBOutlet var searchTextField: UITextField!
@@ -27,6 +28,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        cache.countLimit = 50
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -46,9 +49,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.automaticallyAdjustsScrollViewInsets = false
     }
     
+    deinit{
+        println("ViewController deinitializing")
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.queryObjects(manager.location)
+        if let location = manager.location{
+            self.queryObjects(location)
+        }
     }
 
     func refresh(sender:AnyObject)
@@ -95,22 +104,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     func collectionView(collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("foursquareCell", forIndexPath: indexPath) as! foursquareCell
+            
             if let items = searchResults{
+                let object :PFObject = items[indexPath.row]
                 cell.label.text = items[indexPath.row].objectForKey("title") as? String
                 cell.bodyLabel.text = items[indexPath.row].objectForKey("body") as? String
                 cell.object = items[indexPath.row]
+                
+                let cell_key = object.objectId
+                
+                if(object.objectForKey("image") == nil){
+                    cell.backgroundImage.hidden = true
+                    cell.overlayView.hidden = true
+                }
+                else{
+                    cell.backgroundImage.hidden = false
+                    cell.overlayView.hidden = false
+                    if((self.cache.objectForKey(object.objectId!)) != nil){
+                        cell.backgroundImage.image = self.cache.objectForKey(object.objectId!) as? UIImage
+                    }
+                    else{
+                        if let file : PFFile = object.objectForKey("image") as? PFFile{
+                            file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
+                                if(error != nil){
+                                    
+                                }
+                                else{
+                                    var file = data
+                                    var bgImage = UIImage(data: file!)
+                                    self.cache.setObject(bgImage!, forKey: cell_key!)
+                                    cell.backgroundImage.image = bgImage
+                                }
+                            })
+                        }
+                    }
+                }
             }
-            if(indexPath.row % 2 == 0){
-                cell.backgroundImage.image = UIImage(named: "baja_fresh.png")
-            }
-            else{
-                cell.backgroundImage.image = UIImage(named: "teoco.png")
-
-            }
-            //            var object = PFObject(className: "Venue")
-            //            object.setValue(venueInfo!["name"] as? String, forKey: "name")
-            //            object.setValue(venueInfo!["id"] as? String, forKey: "foursquareID")
-            //            object.save()
+        
             return cell
     }
     
@@ -169,5 +199,7 @@ class foursquareCell : UICollectionViewCell{
     @IBOutlet var label: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var backgroundImage: UIImageView!
+    @IBOutlet var overlayView: UIView!
+
     var object : PFObject!
 }

@@ -15,11 +15,12 @@ class PostModel{
     var body : String!
     var url : String!
     var authorID : String!
-    var location : CLLocation!
+    var location : CLLocationCoordinate2D!
+    var image : UIImage?
     
     var parseObj : PFObject!
     
-    init(title:String, body:String, url:String, authorID:String, location:CLLocation){
+    init(title:String, body:String, url:String, authorID:String, location:CLLocationCoordinate2D){
         self.title = title
         self.body = body
         self.url = url
@@ -34,7 +35,7 @@ class PostModel{
         self.url = object.objectForKey("url") as? String
         self.authorID = object.objectForKey("authorID") as? String
         var geoPoint = object.objectForKey("location") as? PFGeoPoint
-        self.location = CLLocation(latitude: geoPoint!.latitude, longitude: geoPoint!.longitude)
+        self.location = CLLocationCoordinate2D(latitude: geoPoint!.latitude, longitude: geoPoint!.longitude)
         
         self.parseObj = object
     }
@@ -53,8 +54,14 @@ class PostModel{
         user.objectId = authorID
         parseObj.setObject(user, forKey: "author")
         
-        var geoPoint = PFGeoPoint(location: location)
+        var geoPoint = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
         parseObj.setObject(geoPoint, forKey: "location")
+        
+        if let objImage = image{
+            var jpegImage = UIImageJPEGRepresentation(objImage, 1.0)
+            let file = PFFile(name: "image.jpg", data: jpegImage)
+            parseObj.setObject(file, forKey: "image")
+        }
     }
     
 }

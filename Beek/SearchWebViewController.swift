@@ -23,14 +23,9 @@ class SearchWebViewController: UIViewController{
         
         self.webView = WKWebView()
         self.containerView.addSubview(self.webView!)
-//        self.webView?.frame = self.view.bounds
-//        self.containerView.insertSubview(self.webView!, atIndex: 0)
-//        self.containerView = self.webView
         
         query = query.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        
         var fulladdress = "http://www.google.com/search?q=" + query
-        
         var url = NSURL(string: fulladdress)
         var requestObj = NSURLRequest(URL: url!)
         self.webView!.loadRequest(requestObj)
@@ -51,7 +46,46 @@ class SearchWebViewController: UIViewController{
     }
     
     @IBAction func addButtonPressed(sender: AnyObject) {
+
+    }
+    
+    func screenShotMethod() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, true, 0);
+        self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true);
+        let snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        let cropped = cropImageToSquare(snapshotImage)
+//        UIImageWriteToSavedPhotosAlbum(cropped, nil, nil, nil)
+        return cropped;
+    }
+    
+    func cropImageToSquare(image: UIImage) -> UIImage{
+        let posX: CGFloat
+        let posY: CGFloat
+        let width: CGFloat
+        let height: CGFloat
         
+        let contextSize: CGSize = image.size
+        // Check to see which length is the longest and create the offset based on that length, then set the width and height for our rect
+        if contextSize.width > contextSize.height {
+            posX = ((contextSize.width - contextSize.height) / 2)
+            posY = 0
+            width = contextSize.height
+            height = contextSize.height
+        } else {
+            posX = 0
+            posY = ((contextSize.height - contextSize.width) / 2)
+            width = contextSize.width
+            height = contextSize.width
+        }
+        
+        let rect: CGRect = CGRectMake(posX * image.scale, posY * image.scale, width * image.scale, height * image.scale)
+        // Create bitmap image from context using the rect
+        let imageRef: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, rect)
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let newimage: UIImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)!
+        
+        return newimage
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -60,6 +94,7 @@ class SearchWebViewController: UIViewController{
             var destVC = segue.destinationViewController as! CreatePostViewController
             var url:NSURL = self.webView!.URL!
             destVC.postURL = url.absoluteString
+            destVC.image = screenShotMethod()
         }
     }
 }

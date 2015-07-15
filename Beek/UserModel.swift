@@ -23,5 +23,9 @@ class UserModel{
         var user = UserModel(user: PFUser.currentUser()!)
         return user
     }
+    
+    class func logoutUser() {
+        PFUser.logOut()
+    }
 
 }

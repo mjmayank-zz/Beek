@@ -48,10 +48,9 @@
 		8F4BA1191B54B41A0049DAEB /* balloon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F4BA1181B54B41A0049DAEB /* balloon.jpg */; };
 		8FB005AE1B53FC9300839705 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005AD1B53FC9300839705 /* DBManager.swift */; };
 		8FB005B01B53FCBC00839705 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005AF1B53FCBC00839705 /* UserModel.swift */; };
-		8FB005B21B54377300839705 /* teoco.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB005B11B54377300839705 /* teoco.png */; };
-		8FB005B41B5439AF00839705 /* baja_fresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FB005B31B5439AF00839705 /* baja_fresh.png */; };
 		8FB005B61B543CBA00839705 /* SearchWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005B51B543CBA00839705 /* SearchWebViewController.swift */; };
-		8FB005B81B543DDC00839705 /* addbutton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8FB005B71B543DDC00839705 /* addbutton.jpg */; };
+		8FC73F171B55517E008D3893 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC73F161B55517E008D3893 /* SettingsViewController.swift */; };
+		8FC73F191B557517008D3893 /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC73F181B557517008D3893 /* addButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,10 +110,9 @@
 		8F4BA1181B54B41A0049DAEB /* balloon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = balloon.jpg; path = Assetts/balloon.jpg; sourceTree = "<group>"; };
 		8FB005AD1B53FC9300839705 /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		8FB005AF1B53FCBC00839705 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		8FB005B11B54377300839705 /* teoco.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = teoco.png; path = Assetts/teoco.png; sourceTree = "<group>"; };
-		8FB005B31B5439AF00839705 /* baja_fresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baja_fresh.png; path = Assetts/baja_fresh.png; sourceTree = "<group>"; };
 		8FB005B51B543CBA00839705 /* SearchWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWebViewController.swift; sourceTree = "<group>"; };
-		8FB005B71B543DDC00839705 /* addbutton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = addbutton.jpg; path = Assetts/addbutton.jpg; sourceTree = "<group>"; };
+		8FC73F161B55517E008D3893 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8FC73F181B557517008D3893 /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addButton.png; path = Assetts/addButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,10 +172,8 @@
 			children = (
 				8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */,
 				8F4BA1181B54B41A0049DAEB /* balloon.jpg */,
-				8FB005B71B543DDC00839705 /* addbutton.jpg */,
-				8FB005B31B5439AF00839705 /* baja_fresh.png */,
-				8FB005B11B54377300839705 /* teoco.png */,
 				8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */,
+				8FC73F181B557517008D3893 /* addButton.png */,
 				8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */,
 				8FB005B51B543CBA00839705 /* SearchWebViewController.swift */,
 				8F00A0651B505B51005AA0F1 /* SidewaysDataSource.swift */,
@@ -190,6 +186,7 @@
 				8F3BF6BE1B51650B00F56232 /* PostModel.swift */,
 				8F00A0351B4EE49C005AA0F1 /* DetailViewController.swift */,
 				8F00A03E1B4F56F6005AA0F1 /* LoginViewController.swift */,
+				8FC73F161B55517E008D3893 /* SettingsViewController.swift */,
 				8F00A0311B4EE0DB005AA0F1 /* CreatePostViewController.swift */,
 				8FB005AD1B53FC9300839705 /* DBManager.swift */,
 				8FB005AF1B53FCBC00839705 /* UserModel.swift */,
@@ -331,14 +328,12 @@
 				8F00A05A1B504C3D005AA0F1 /* profile_icon.png in Resources */,
 				8F00A0601B505576005AA0F1 /* logo_white.png in Resources */,
 				8F009FF21B4EBDF6005AA0F1 /* Main.storyboard in Resources */,
+				8FC73F191B557517008D3893 /* addButton.png in Resources */,
 				8F009FF71B4EBDF6005AA0F1 /* LaunchScreen.xib in Resources */,
 				8F00A0621B5057A6005AA0F1 /* beek_circl.png in Resources */,
 				8F009FF41B4EBDF6005AA0F1 /* Images.xcassets in Resources */,
-				8FB005B41B5439AF00839705 /* baja_fresh.png in Resources */,
 				8F00A06C1B50C2DA005AA0F1 /* poweredByFoursquare.png in Resources */,
-				8FB005B81B543DDC00839705 /* addbutton.jpg in Resources */,
 				8F00A05E1B50547C005AA0F1 /* beek_180.png in Resources */,
-				8FB005B21B54377300839705 /* teoco.png in Resources */,
 				8F4BA1191B54B41A0049DAEB /* balloon.jpg in Resources */,
 				8F00A06A1B50C026005AA0F1 /* cafesanoIcon.png in Resources */,
 				8F00A0581B502378005AA0F1 /* postbutton.jpg in Resources */,
@@ -367,6 +362,7 @@
 				8FB005B01B53FCBC00839705 /* UserModel.swift in Sources */,
 				8F009FEF1B4EBDF6005AA0F1 /* ViewController.swift in Sources */,
 				8FB005B61B543CBA00839705 /* SearchWebViewController.swift in Sources */,
+				8FC73F171B55517E008D3893 /* SettingsViewController.swift in Sources */,
 				8F00A0441B501433005AA0F1 /* WebViewController.swift in Sources */,
 				8FB005AE1B53FC9300839705 /* DBManager.swift in Sources */,
 				8F00A03F1B4F56F6005AA0F1 /* LoginViewController.swift in Sources */,

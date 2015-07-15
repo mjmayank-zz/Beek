@@ -14,6 +14,7 @@ import Parse
 class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewDelegate{
     
     var postURL : String?
+    var image : UIImage?
     let manager = CLLocationManager()
     
     @IBOutlet var bodyTextView: UITextView!
@@ -37,14 +38,13 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         if let url = postURL{
             self.urlTextField.text = url
         }
+        
         var leftConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: CGFloat(1.0), constant: CGFloat(0))
         self.view.addConstraint(leftConstraint)
-        
         var rightConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Right, multiplier: CGFloat(1.0), constant: CGFloat(0))
         self.view.addConstraint(rightConstraint)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
@@ -60,10 +60,10 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
             
             self.mapView.setRegion(region, animated: true)
             
-            var annotation = MKPointAnnotation()
-            annotation.coordinate = self.mapView.userLocation.coordinate
-//            annotation.title = "Title" //You can set the subtitle too
-//            self.mapView.addAnnotation(annotation)
+            var annotation = MyAnnotation(coordinate: self.mapView.userLocation.coordinate)
+//            annotation.coordinate = self.mapView.userLocation.coordinate
+            annotation.title = "Title" //You can set the subtitle too
+            self.mapView.addAnnotation(annotation)
             
             self.mapView.userLocation.removeObserver(self, forKeyPath: "location")
         }
@@ -95,14 +95,21 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     deinit{
         self.mapView.removeFromSuperview()
         self.mapView = nil
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
         var body = bodyTextView.text
         var title = titleTextField.text
         var url = urlTextField.text
-        var location = manager.location
+        let annotation : MKAnnotation = self.mapView.annotations[1] as! MKAnnotation
+        var location = annotation.coordinate
         var object = PostModel(title: title, body: body, url: url, authorID: PFUser.currentUser()!.objectId!, location: location)
+        if let bgImage = image{
+            object.image = bgImage
+        }
         object.saveInBackground()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -119,19 +126,21 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        var pin = self.mapView.dequeueReusableAnnotationViewWithIdentifier("myPin")
-        if(pin == nil) {
-            pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myPin")
-        } else {
-            pin.annotation = annotation;
+        if(!annotation.isMemberOfClass(MyAnnotation)){
+            return nil
         }
         
-        var newPin = pin as! MKPinAnnotationView
+        var pin : MKPinAnnotationView!
+        if(self.mapView.dequeueReusableAnnotationViewWithIdentifier("myPin") == nil) {
+            pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myPin")
+        } else {
+            pin.annotation = annotation
+        }
         
-        newPin.animatesDrop = true;
-        newPin.draggable = true;
+        pin.animatesDrop = true
+        pin.draggable = true
         
-        return newPin;
+        return pin
     }
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
@@ -146,21 +155,27 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     
 }
 
-class MyAnnotation : NSObject{
-    var coordinate : CLLocationCoordinate2D!
+class MyAnnotation : NSObject, MKAnnotation{
+    var myCoordinate : CLLocationCoordinate2D!
+    var title : String?
+    var subtitle : String?
     
-    func initWithCoordinate(coord : CLLocationCoordinate2D) -> MyAnnotation {
-        coordinate=coord
-        return self
+    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
+        self.myCoordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
     }
     
-    func coord() -> CLLocationCoordinate2D
-    {
-    return coordinate;
+    init(coordinate: CLLocationCoordinate2D) {
+        self.myCoordinate = coordinate
+    }
+    
+    var coordinate: CLLocationCoordinate2D {
+        return myCoordinate
     }
     
     func setCoordinate(newCoordinate : CLLocationCoordinate2D) {
-        coordinate = newCoordinate;
+        self.myCoordinate = newCoordinate;
     }
     
 }

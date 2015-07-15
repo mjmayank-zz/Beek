@@ -21,7 +21,7 @@ class LoginViewController : UIViewController{
     }
     
     @IBAction func loginButtonPressed(sender: AnyObject) {
-        PFUser.logInWithUsernameInBackground(usernameTextField.text, password: passwordTextField.text) { (user:PFUser?, error:NSError?) -> Void in
+        PFUser.logInWithUsernameInBackground(usernameTextField.text.lowercaseString, password: passwordTextField.text) { (user:PFUser?, error:NSError?) -> Void in
             if(error == nil){
                 self.performSegueWithIdentifier("toFeed", sender: self)
             }
@@ -37,7 +37,7 @@ class LoginViewController : UIViewController{
     @IBAction func signupButtonPressed(sender: AnyObject) {
         if(passwordTextField.text == confirmPasswordTextField.text){
             var user = PFUser()
-            user.username = usernameTextField.text
+            user.username = usernameTextField.text.lowercaseString
             user.password = passwordTextField.text
             user.signUpInBackgroundWithBlock({ (bool:Bool, error:NSError?) -> Void in
                 if((error) != nil){

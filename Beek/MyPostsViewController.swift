@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Parse
 
-class MyPostsViewController:UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class MyPostsViewController:UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, myPostCellDelegate {
     @IBOutlet var collectionView: UICollectionView!
     var searchResults : [PFObject]?
     
@@ -55,18 +55,36 @@ class MyPostsViewController:UIViewController, UICollectionViewDataSource, UIColl
             cell.titleLabel.text = items[indexPath.row].objectForKey("title") as? String
             cell.bodyLabel.text = items[indexPath.row].objectForKey("body") as? String
             cell.object = items[indexPath.row]
+            cell.delegate = self
         }
         
         return cell
     }
+    
+    func deleteObject(object: PFObject){
+        var alert = UIAlertController(title: "Alert", message: "Are you sure you want to delete this?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction!) -> Void in
+                object.deleteInBackgroundWithBlock(nil)
+            self.queryPosts()
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }
 
-class myPostCell : UICollectionViewCell{
+class myPostCell : UICollectionViewCell, UIAlertViewDelegate{
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     var object : PFObject!
+    var delegate: myPostCellDelegate?
     
     @IBAction func deleteButtonPressed(sender: AnyObject) {
-        object.deleteInBackgroundWithBlock(nil)
+        if let del = delegate{
+            delegate?.deleteObject(object)
+        }
     }
+}
+
+protocol myPostCellDelegate {
+    func deleteObject(object: PFObject)
 }
