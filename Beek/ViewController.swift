@@ -146,7 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let items = searchResults{
-            if items[indexPath.row].objectForKey("url") as? String != nil{
+            if items[indexPath.row].objectForKey("url") as? String != nil && items[indexPath.row].objectForKey("url") as? String != ""{
                 self.performSegueWithIdentifier("toWebView", sender: self)
             }
             else{
@@ -180,13 +180,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
         
         else if(segue.identifier == "searched"){
-            var search = PFObject(className: "Search")
-            search.setObject(self.searchTextField.text, forKey: "searchValue")
-            search.setObject(PFUser.currentUser()!, forKey: "user")
-            var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
-            search.setObject(geoPoint, forKey: "location")
-            search.saveInBackgroundWithBlock(nil)
-            
+            if(self.searchTextField.text != ""){
+                var search = PFObject(className: "Search")
+                search.setObject(self.searchTextField.text, forKey: "searchValue")
+                search.setObject(PFUser.currentUser()!, forKey: "user")
+                var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
+                search.setObject(geoPoint, forKey: "location")
+                search.saveInBackgroundWithBlock(nil)
+            }
             self.searchTextField.resignFirstResponder()
             var destVC = segue.destinationViewController as! SearchWebViewController
             destVC.query = self.searchTextField.text

@@ -17,21 +17,19 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     var image : UIImage?
     let manager = CLLocationManager()
     
-    @IBOutlet var bodyTextView: UITextView!
+
+    @IBOutlet var bodyTextField: UITextField!
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var urlTextField: UITextField!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var containerView: UIView!
-    @IBOutlet var bodyPlaceholderLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: (NSKeyValueObservingOptions.New|NSKeyValueObservingOptions.Old), context: nil)
         self.mapView.delegate = self
-        
-        self.bodyTextView.delegate = self
         
         self.titleTextField.becomeFirstResponder()
         
@@ -101,10 +99,17 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
-        var body = bodyTextView.text
-        var title = titleTextField.text
         var url = urlTextField.text
-        let annotation : MKAnnotation = self.mapView.annotations[1] as! MKAnnotation
+        var candidateURL = NSURL(string: url)
+        if candidateURL != nil && url != ""{
+            if(candidateURL!.scheme == nil) {
+                url = "http://" + url
+                candidateURL = NSURL(string: url)
+            }
+        }
+        var body = bodyTextField.text
+        var title = titleTextField.text
+        let annotation : MKAnnotation = self.mapView.annotations[0] as! MKAnnotation
         var location = annotation.coordinate
         var object = PostModel(title: title, body: body, url: url, authorID: PFUser.currentUser()!.objectId!, location: location)
         if let bgImage = image{
@@ -119,10 +124,6 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     
     override func prefersStatusBarHidden() -> Bool {
         return false
-    }
-    
-    func textViewDidChange(textView: UITextView) {
-        self.bodyPlaceholderLabel.hidden = textView.text != ""
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {

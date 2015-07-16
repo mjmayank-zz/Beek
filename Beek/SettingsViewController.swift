@@ -13,7 +13,9 @@ class SettingsViewController: UIViewController{
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         UserModel.logoutUser()
+        self.navigationController?.popToRootViewControllerAnimated(false)
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     deinit{

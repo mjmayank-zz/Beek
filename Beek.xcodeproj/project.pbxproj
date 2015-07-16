@@ -171,10 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */,
-				8F4BA1181B54B41A0049DAEB /* balloon.jpg */,
-				8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */,
-				8FC73F181B557517008D3893 /* addButton.png */,
-				8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */,
 				8FB005B51B543CBA00839705 /* SearchWebViewController.swift */,
 				8F00A0651B505B51005AA0F1 /* SidewaysDataSource.swift */,
 				8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */,
@@ -190,13 +186,9 @@
 				8F00A0311B4EE0DB005AA0F1 /* CreatePostViewController.swift */,
 				8FB005AD1B53FC9300839705 /* DBManager.swift */,
 				8FB005AF1B53FCBC00839705 /* UserModel.swift */,
-				8F00A0611B5057A6005AA0F1 /* beek_circl.png */,
-				8F00A05D1B50547C005AA0F1 /* beek_180.png */,
-				8F00A0571B502378005AA0F1 /* postbutton.jpg */,
-				8F00A05F1B505576005AA0F1 /* logo_white.png */,
-				8F00A0591B504C3D005AA0F1 /* profile_icon.png */,
 				8F009FF31B4EBDF6005AA0F1 /* Images.xcassets */,
 				8F009FF51B4EBDF6005AA0F1 /* LaunchScreen.xib */,
+				8FE3622E1B57F298005302F7 /* Assets */,
 				8F009FEA1B4EBDF6005AA0F1 /* Supporting Files */,
 			);
 			path = Beek;
@@ -242,6 +234,22 @@
 				8F00A0011B4EBDF6005AA0F1 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8FE3622E1B57F298005302F7 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8F4BA1181B54B41A0049DAEB /* balloon.jpg */,
+				8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */,
+				8FC73F181B557517008D3893 /* addButton.png */,
+				8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */,
+				8F00A0611B5057A6005AA0F1 /* beek_circl.png */,
+				8F00A05D1B50547C005AA0F1 /* beek_180.png */,
+				8F00A0571B502378005AA0F1 /* postbutton.jpg */,
+				8F00A05F1B505576005AA0F1 /* logo_white.png */,
+				8F00A0591B504C3D005AA0F1 /* profile_icon.png */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

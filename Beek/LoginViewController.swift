@@ -50,4 +50,8 @@ class LoginViewController : UIViewController{
             
         }
     }
+    
+    deinit{
+        
+    }
 }
