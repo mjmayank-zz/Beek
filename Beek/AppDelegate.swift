@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import QuadratTouch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,14 +18,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //Foursquare API Integration
+        let client = Client(clientID:       "I2J4JN5GIOMDNSFP02H3CWYTQ0L0CXMRTVRXSWVR3XRZCCJ2",
+            clientSecret:   "H5MDABPQUUGLG25LEDYXH3JKBYIVGQMHALQ1VUAA2HKHSCLC",
+            redirectURL:    "testapp123://foursquare")
+        var configuration = Configuration(client:client)
+        Session.setupSharedSessionWithConfiguration(configuration)
+        
+        //Parse API Integration
         Parse.setApplicationId("75sRxIv4FG78YmOFLZuMn5hycdWfyPELYi1NF4Va", clientKey: "fJdZ5DWAVD5CVtPeGlUU1dlvW78dVRhwhkRVthcB")
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
         var storyboard = UIStoryboard(name: "Main", bundle: nil)
-    
         var storyboardId = (PFUser.currentUser() != nil) ? "feedNavigationController" : "loginViewController";
-        
         var viewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier(storyboardId) as! UIViewController
         
         self.window!.rootViewController = viewController;

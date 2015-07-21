@@ -14,6 +14,8 @@ class LoginViewController : UIViewController{
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var confirmPasswordTextField: UITextField!
+    @IBOutlet var firstNameTextField: UITextField!
+    @IBOutlet var lastNameTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +29,8 @@ class LoginViewController : UIViewController{
             }
             else{
                 println(error)
-                var alert = UIAlertController(title: "Error", message: "Try doing something else", preferredStyle: UIAlertControllerStyle.Alert)
+                var message = error!.userInfo as! [String: AnyObject]
+                var alert = UIAlertController(title: "Error", message: message["NSLocalizedDescription"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
             }
@@ -39,9 +42,15 @@ class LoginViewController : UIViewController{
             var user = PFUser()
             user.username = usernameTextField.text.lowercaseString
             user.password = passwordTextField.text
+            user.setObject(firstNameTextField.text, forKey: "first_name")
+            user.setObject(lastNameTextField.text, forKey: "last_name")
             user.signUpInBackgroundWithBlock({ (bool:Bool, error:NSError?) -> Void in
                 if((error) != nil){
                     println(error)
+                    var message = error!.userInfo as! [String: AnyObject]
+                    var alert = UIAlertController(title: "Error", message: message["NSLocalizedDescription"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
                 else{
                     self.performSegueWithIdentifier("toFeed", sender: self)

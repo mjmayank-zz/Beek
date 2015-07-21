@@ -10,31 +10,42 @@ import UIKit
 import CoreLocation
 import Foundation
 import Parse
+import QuadratTouch
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     let manager = CLLocationManager()
     var searchResults : [PFObject]?
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
-    var dataSource = FoursquareView()
+    var fsDataSource = FoursquareView()
+    var appsDataSource = AppLauncherDataSource()
+    var searchesDataSource = SearchesDataSource()
     var cache = NSCache()
-
+    var session : Session!
     
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var foursquareCollectionView: UICollectionView!
+    @IBOutlet var appLauncher: UICollectionView!
+    @IBOutlet var searchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        session = Session.sharedSession()
+        
         cache.countLimit = 50
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        foursquareCollectionView.dataSource = dataSource
-        foursquareCollectionView.delegate = dataSource
+        foursquareCollectionView.dataSource = fsDataSource
+        foursquareCollectionView.delegate = fsDataSource
+        appLauncher.dataSource = appsDataSource
+        appLauncher.delegate = appsDataSource
+        searchesCollectionView.dataSource = searchesDataSource
+        searchesCollectionView.delegate = searchesDataSource
         
         manager.delegate = self
         if CLLocationManager.authorizationStatus() == .NotDetermined {
@@ -99,11 +110,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             }
             self.collectionView.reloadData()
         }
+        
+        var searchesQuery = PFQuery(className: "Search")
+        searchesQuery.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
+        searchesQuery.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
+            if(error != nil){
+                print(error)
+            }
+            else{
+                if(results != nil){
+                    self.searchesDataSource.searchResults = results as? [PFObject]
+                }
+            }
+            self.searchesCollectionView.reloadData()
+        }
     }
     
     func collectionView(collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("foursquareCell", forIndexPath: indexPath) as! foursquareCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("localPostCell", forIndexPath: indexPath) as! localPostCell
             
             if let items = searchResults{
                 let object :PFObject = items[indexPath.row]
@@ -155,13 +180,49 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if(self.view.bounds.width > 400){
+            return CGSize(width:self.view.bounds.width/3-10, height:self.view.bounds.width/3-10)
+        }
+        return CGSize(width:self.view.bounds.width/2-10, height:self.view.bounds.width/2-10)
+    }
+    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var newLocation = locations[0] as! CLLocation
         if(newLocation.distanceFromLocation(oldLocation) > 100){
             oldLocation = newLocation
             queryObjects(newLocation)
+            let location = self.manager.location
+            var parameters = location.parameters()
+            parameters["radius"] = "500"
+            let task = self.session.venues.explore(parameters) {
+                (result) -> Void in
+                if self.fsDataSource.venueItems != nil {
+                    return
+                }
+                if !NSThread.isMainThread() {
+                    fatalError("!!!")
+                }
+                
+                if result.response != nil {
+                    if let groups = result.response!["groups"] as? [[String: AnyObject]]  {
+                        var venues = [[String: AnyObject]]()
+                        for group in groups {
+                            if let items = group["items"] as? [[String: AnyObject]] {
+                                venues += items
+                            }
+                        }
+                        
+                        self.fsDataSource.venueItems = venues
+                    }
+                    //                print(self.venueItems)
+                                    self.foursquareCollectionView.reloadData()
+                } else if result.error != nil && !result.isCancelled() {
+                    //                self.showErrorAlert(result.error!)
+                }
+            }
+            task.start()
         }
-        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -192,15 +253,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             var destVC = segue.destinationViewController as! SearchWebViewController
             destVC.query = self.searchTextField.text
         }
+        else if(segue.identifier == "suggestedSearched"){
+            var destVC = segue.destinationViewController as! SearchWebViewController
+            let cell = sender as! searchesCell
+            destVC.query = cell.searchLabel.text
+        }
     }
     
 }
 
-class foursquareCell : UICollectionViewCell{
+class localPostCell : UICollectionViewCell{
     @IBOutlet var label: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var backgroundImage: UIImageView!
     @IBOutlet var overlayView: UIView!
-
+    
     var object : PFObject!
+}
+
+extension CLLocation {
+    func parameters() -> Parameters {
+        let ll      = "\(self.coordinate.latitude),\(self.coordinate.longitude)"
+        let llAcc   = "\(self.horizontalAccuracy)"
+        let alt     = "\(self.altitude)"
+        let altAcc  = "\(self.verticalAccuracy)"
+        let parameters = [
+            Parameter.ll:ll,
+            Parameter.llAcc:llAcc,
+            Parameter.alt:alt,
+            Parameter.altAcc:altAcc
+        ]
+        return parameters
+    }
 }
