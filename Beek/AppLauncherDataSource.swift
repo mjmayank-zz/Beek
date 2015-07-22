@@ -8,15 +8,17 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class AppLauncherDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegate{
  
-    
+    var manager : CLLocationManager!
     var array: [String] = NSUserDefaults.standardUserDefaults().objectForKey("apps")! as! [String]
     var dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Apps", ofType: "plist")!)!
     
-    override init() {
+    init(manager: CLLocationManager) {
         array = dict.allKeys as! [String]
+        self.manager = manager
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -32,6 +34,13 @@ class AppLauncherDataSource : NSObject, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        var launch = PFObject(className: "AppLaunch")
+        launch.setObject(array[indexPath.row], forKey: "app")
+        launch.setObject(PFUser.currentUser()!, forKey: "user")
+        var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
+        launch.setObject(geoPoint, forKey: "location")
+        launch.saveInBackgroundWithBlock(nil)
+        
         let item : AnyObject = dict[array[indexPath.row]]!
         let url : String = item["url_scheme"] as! String
         let myURL = NSURL(string: url)

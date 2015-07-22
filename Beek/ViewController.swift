@@ -19,7 +19,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
     var fsDataSource = FoursquareView()
-    var appsDataSource = AppLauncherDataSource()
+    var appsDataSource : AppLauncherDataSource!
     var searchesDataSource = SearchesDataSource()
     var cache = NSCache()
     var session : Session!
@@ -33,6 +33,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        appsDataSource = AppLauncherDataSource(manager: manager)
         
         session = Session.sharedSession()
         
