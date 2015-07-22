@@ -21,6 +21,8 @@ class SearchWebViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         self.webView = WKWebView()
         self.containerView.addSubview(self.webView!)
         
@@ -30,6 +32,14 @@ class SearchWebViewController: UIViewController{
         var requestObj = NSURLRequest(URL: url!)
         self.webView!.loadRequest(requestObj)
         
+//        var leftConstraint = NSLayoutConstraint(item: self.webView!, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self.containerView, attribute: NSLayoutAttribute.Left, multiplier: CGFloat(1.0), constant: CGFloat(0))
+//        self.containerView.addConstraint(leftConstraint)
+//        var topConstraint = NSLayoutConstraint(item: self.webView!, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.containerView, attribute: NSLayoutAttribute.Top, multiplier: CGFloat(1.0), constant: CGFloat(0))
+//        self.containerView.addConstraint(topConstraint)
+//        var bottomConstraint = NSLayoutConstraint(item: self.webView!, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.containerView, attribute: NSLayoutAttribute.Bottom, multiplier: CGFloat(1.0), constant: CGFloat(0))
+//        self.containerView.addConstraint(bottomConstraint)
+//        var rightConstraint = NSLayoutConstraint(item: self.webView!, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self.containerView, attribute: NSLayoutAttribute.Right, multiplier: CGFloat(1.0), constant: CGFloat(0))
+//        self.containerView.addConstraint(rightConstraint)
     }
     
     override func viewWillLayoutSubviews() {

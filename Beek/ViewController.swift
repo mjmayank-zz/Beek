@@ -12,7 +12,7 @@ import Foundation
 import Parse
 import QuadratTouch
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
 
     let manager = CLLocationManager()
     var searchResults : [PFObject]?
@@ -58,6 +58,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.collectionView.addSubview(self.refreshControl)
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.searchTextField.delegate = self
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let array = ["fb://", "twitter://", "mailto://", "sms://", "instagram://"]
+        defaults.setObject(array, forKey: "apps")
+        defaults.objectForKey("apps")
     }
     
     deinit{
@@ -172,7 +179,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let items = searchResults{
             if items[indexPath.row].objectForKey("url") as? String != nil && items[indexPath.row].objectForKey("url") as? String != ""{
-                self.performSegueWithIdentifier("toWebView", sender: self)
+                var fullURL = ""
+                if let url = items[indexPath.row].objectForKey("url") as? String{
+                    fullURL = url
+                }
+                let endIndex = advance(fullURL.startIndex, 4)
+                var start = fullURL.substringToIndex(endIndex)
+                if(start == "http"){
+                    self.performSegueWithIdentifier("toWebView", sender: self)
+                }
+                else{
+                    //how to launch an app
+                    let myURL = NSURL(string: fullURL)
+                    UIApplication.sharedApplication().openURL(myURL!)
+                }
             }
             else{
                 self.performSegueWithIdentifier("toDetail", sender: self)
@@ -236,6 +256,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             destVC.detailObject = PostModel(object:self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
         }
         else if(segue.identifier == "toWebView"){
+            
             var destVC = segue.destinationViewController as! WebViewController
             destVC.detailObject = PostModel(object: self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
         }
@@ -258,6 +279,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             let cell = sender as! searchesCell
             destVC.query = cell.searchLabel.text
         }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.performSegueWithIdentifier("searched", sender: self)
+        return true
     }
     
 }

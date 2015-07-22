@@ -35,24 +35,27 @@
 		8F00A04F1B501849005AA0F1 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F00A0491B501849005AA0F1 /* ParseFacebookUtilsV4.framework */; };
 		8F00A0501B501849005AA0F1 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F00A04A1B501849005AA0F1 /* ParseUI.framework */; };
 		8F00A0561B501C7A005AA0F1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */; };
-		8F00A0581B502378005AA0F1 /* postbutton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A0571B502378005AA0F1 /* postbutton.jpg */; };
-		8F00A05A1B504C3D005AA0F1 /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A0591B504C3D005AA0F1 /* profile_icon.png */; };
 		8F00A05C1B504F5D005AA0F1 /* MyPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */; };
-		8F00A05E1B50547C005AA0F1 /* beek_180.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A05D1B50547C005AA0F1 /* beek_180.png */; };
-		8F00A0601B505576005AA0F1 /* logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A05F1B505576005AA0F1 /* logo_white.png */; };
-		8F00A0621B5057A6005AA0F1 /* beek_circl.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A0611B5057A6005AA0F1 /* beek_circl.png */; };
 		8F00A0661B505B51005AA0F1 /* FoursquareDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0651B505B51005AA0F1 /* FoursquareDataSource.swift */; };
-		8F00A06A1B50C026005AA0F1 /* cafesanoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */; };
-		8F00A06C1B50C2DA005AA0F1 /* poweredByFoursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */; };
+		8F1E62621B5FDF0A00B50000 /* teoco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E62611B5FDF0A00B50000 /* teoco.gpx */; };
+		8F30C7D91B60244D009B7C5D /* Apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7D81B60244D009B7C5D /* Apps.plist */; };
+		8F30C7ED1B6038A6009B7C5D /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E61B6038A6009B7C5D /* addButton.png */; };
+		8F30C7EE1B6038A6009B7C5D /* balloon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E71B6038A6009B7C5D /* balloon.jpg */; };
+		8F30C7EF1B6038A6009B7C5D /* beek_circl.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E81B6038A6009B7C5D /* beek_circl.png */; };
+		8F30C7F01B6038A6009B7C5D /* logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E91B6038A6009B7C5D /* logo_white.png */; };
+		8F30C7F11B6038A6009B7C5D /* postbutton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7EA1B6038A6009B7C5D /* postbutton.jpg */; };
+		8F30C7F21B6038A6009B7C5D /* poweredByFoursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7EB1B6038A6009B7C5D /* poweredByFoursquare.png */; };
+		8F30C7F31B6038A6009B7C5D /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7EC1B6038A6009B7C5D /* profile_icon.png */; };
+		8F30C7F71B6038B0009B7C5D /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7F41B6038B0009B7C5D /* facebook.png */; };
+		8F30C7F81B6038B0009B7C5D /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7F51B6038B0009B7C5D /* instagram.png */; };
+		8F30C7F91B6038B0009B7C5D /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7F61B6038B0009B7C5D /* twitter.png */; };
 		8F3BF6BF1B51650B00F56232 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BF6BE1B51650B00F56232 /* PostModel.swift */; };
-		8F4BA1191B54B41A0049DAEB /* balloon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F4BA1181B54B41A0049DAEB /* balloon.jpg */; };
 		8F5DD7681B5D4285005E2548 /* AppLauncherDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DD7671B5D4285005E2548 /* AppLauncherDataSource.swift */; };
 		8F5DD76B1B5D4DE2005E2548 /* SearchesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DD76A1B5D4DE2005E2548 /* SearchesDataSource.swift */; };
 		8FB005AE1B53FC9300839705 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005AD1B53FC9300839705 /* DBManager.swift */; };
 		8FB005B01B53FCBC00839705 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005AF1B53FCBC00839705 /* UserModel.swift */; };
 		8FB005B61B543CBA00839705 /* SearchWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005B51B543CBA00839705 /* SearchWebViewController.swift */; };
 		8FC73F171B55517E008D3893 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC73F161B55517E008D3893 /* SettingsViewController.swift */; };
-		8FC73F191B557517008D3893 /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC73F181B557517008D3893 /* addButton.png */; };
 		8FE3624F1B57F62A005302F7 /* QuadratTouch.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FE3624B1B57F5F8005302F7 /* QuadratTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -134,24 +137,27 @@
 		8F00A0491B501849005AA0F1 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		8F00A04A1B501849005AA0F1 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = Frameworks/ParseUI.framework; sourceTree = "<group>"; };
 		8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		8F00A0571B502378005AA0F1 /* postbutton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = postbutton.jpg; path = Assetts/postbutton.jpg; sourceTree = "<group>"; };
-		8F00A0591B504C3D005AA0F1 /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_icon.png; path = Assetts/profile_icon.png; sourceTree = "<group>"; };
 		8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostsViewController.swift; sourceTree = "<group>"; };
-		8F00A05D1B50547C005AA0F1 /* beek_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beek_180.png; path = Assetts/App_Icons/beek_180.png; sourceTree = "<group>"; };
-		8F00A05F1B505576005AA0F1 /* logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_white.png; path = Assetts/logo_white.png; sourceTree = "<group>"; };
-		8F00A0611B5057A6005AA0F1 /* beek_circl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beek_circl.png; path = Assetts/beek_circl.png; sourceTree = "<group>"; };
 		8F00A0651B505B51005AA0F1 /* FoursquareDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoursquareDataSource.swift; sourceTree = "<group>"; };
-		8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cafesanoIcon.png; path = Assetts/cafesanoIcon.png; sourceTree = "<group>"; };
-		8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poweredByFoursquare.png; path = Assetts/poweredByFoursquare.png; sourceTree = "<group>"; };
+		8F1E62611B5FDF0A00B50000 /* teoco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = teoco.gpx; sourceTree = "<group>"; };
+		8F30C7D81B60244D009B7C5D /* Apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Apps.plist; sourceTree = "<group>"; };
+		8F30C7E61B6038A6009B7C5D /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addButton.png; path = Assets/addButton.png; sourceTree = "<group>"; };
+		8F30C7E71B6038A6009B7C5D /* balloon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = balloon.jpg; path = Assets/balloon.jpg; sourceTree = "<group>"; };
+		8F30C7E81B6038A6009B7C5D /* beek_circl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beek_circl.png; path = Assets/beek_circl.png; sourceTree = "<group>"; };
+		8F30C7E91B6038A6009B7C5D /* logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_white.png; path = Assets/logo_white.png; sourceTree = "<group>"; };
+		8F30C7EA1B6038A6009B7C5D /* postbutton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = postbutton.jpg; path = Assets/postbutton.jpg; sourceTree = "<group>"; };
+		8F30C7EB1B6038A6009B7C5D /* poweredByFoursquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poweredByFoursquare.png; path = Assets/poweredByFoursquare.png; sourceTree = "<group>"; };
+		8F30C7EC1B6038A6009B7C5D /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile_icon.png; path = Assets/profile_icon.png; sourceTree = "<group>"; };
+		8F30C7F41B6038B0009B7C5D /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = facebook.png; path = Assets/icons/facebook.png; sourceTree = "<group>"; };
+		8F30C7F51B6038B0009B7C5D /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = instagram.png; path = Assets/icons/instagram.png; sourceTree = "<group>"; };
+		8F30C7F61B6038B0009B7C5D /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twitter.png; path = Assets/icons/twitter.png; sourceTree = "<group>"; };
 		8F3BF6BE1B51650B00F56232 /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
-		8F4BA1181B54B41A0049DAEB /* balloon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = balloon.jpg; path = Assetts/balloon.jpg; sourceTree = "<group>"; };
 		8F5DD7671B5D4285005E2548 /* AppLauncherDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLauncherDataSource.swift; sourceTree = "<group>"; };
 		8F5DD76A1B5D4DE2005E2548 /* SearchesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchesDataSource.swift; sourceTree = "<group>"; };
 		8FB005AD1B53FC9300839705 /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		8FB005AF1B53FCBC00839705 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		8FB005B51B543CBA00839705 /* SearchWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWebViewController.swift; sourceTree = "<group>"; };
 		8FC73F161B55517E008D3893 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		8FC73F181B557517008D3893 /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addButton.png; path = Assetts/addButton.png; sourceTree = "<group>"; };
 		8FE362431B57F5F8005302F7 /* Quadrat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quadrat.xcodeproj; path = "../../beek_old/Beek/das-quadrat/Source/Quadrat.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +198,7 @@
 		8F009FDE1B4EBDF6005AA0F1 = {
 			isa = PBXGroup;
 			children = (
+				8F1E62611B5FDF0A00B50000 /* teoco.gpx */,
 				8F009FE91B4EBDF6005AA0F1 /* Beek */,
 				8F009FFF1B4EBDF6005AA0F1 /* BeekTests */,
 				8F009FE81B4EBDF6005AA0F1 /* Products */,
@@ -212,6 +219,7 @@
 			children = (
 				8F009FF01B4EBDF6005AA0F1 /* Main.storyboard */,
 				8F009FEC1B4EBDF6005AA0F1 /* AppDelegate.swift */,
+				8F30C7D81B60244D009B7C5D /* Apps.plist */,
 				8FAC5B391B5D5130007C925A /* Data Sources */,
 				8FB005B51B543CBA00839705 /* SearchWebViewController.swift */,
 				8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */,
@@ -277,6 +285,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8F30C7DF1B603857009B7C5D /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				8F30C7F41B6038B0009B7C5D /* facebook.png */,
+				8F30C7F51B6038B0009B7C5D /* instagram.png */,
+				8F30C7F61B6038B0009B7C5D /* twitter.png */,
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
 		8FAC5B391B5D5130007C925A /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,15 +308,14 @@
 		8FE3622E1B57F298005302F7 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				8F4BA1181B54B41A0049DAEB /* balloon.jpg */,
-				8F00A06B1B50C2DA005AA0F1 /* poweredByFoursquare.png */,
-				8FC73F181B557517008D3893 /* addButton.png */,
-				8F00A0691B50C026005AA0F1 /* cafesanoIcon.png */,
-				8F00A0611B5057A6005AA0F1 /* beek_circl.png */,
-				8F00A05D1B50547C005AA0F1 /* beek_180.png */,
-				8F00A0571B502378005AA0F1 /* postbutton.jpg */,
-				8F00A05F1B505576005AA0F1 /* logo_white.png */,
-				8F00A0591B504C3D005AA0F1 /* profile_icon.png */,
+				8F30C7E61B6038A6009B7C5D /* addButton.png */,
+				8F30C7E71B6038A6009B7C5D /* balloon.jpg */,
+				8F30C7E81B6038A6009B7C5D /* beek_circl.png */,
+				8F30C7E91B6038A6009B7C5D /* logo_white.png */,
+				8F30C7EA1B6038A6009B7C5D /* postbutton.jpg */,
+				8F30C7EB1B6038A6009B7C5D /* poweredByFoursquare.png */,
+				8F30C7EC1B6038A6009B7C5D /* profile_icon.png */,
+				8F30C7DF1B603857009B7C5D /* icons */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -418,18 +435,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F00A05A1B504C3D005AA0F1 /* profile_icon.png in Resources */,
-				8F00A0601B505576005AA0F1 /* logo_white.png in Resources */,
 				8F009FF21B4EBDF6005AA0F1 /* Main.storyboard in Resources */,
-				8FC73F191B557517008D3893 /* addButton.png in Resources */,
 				8F009FF71B4EBDF6005AA0F1 /* LaunchScreen.xib in Resources */,
-				8F00A0621B5057A6005AA0F1 /* beek_circl.png in Resources */,
+				8F1E62621B5FDF0A00B50000 /* teoco.gpx in Resources */,
 				8F009FF41B4EBDF6005AA0F1 /* Images.xcassets in Resources */,
-				8F00A06C1B50C2DA005AA0F1 /* poweredByFoursquare.png in Resources */,
-				8F00A05E1B50547C005AA0F1 /* beek_180.png in Resources */,
-				8F4BA1191B54B41A0049DAEB /* balloon.jpg in Resources */,
-				8F00A06A1B50C026005AA0F1 /* cafesanoIcon.png in Resources */,
-				8F00A0581B502378005AA0F1 /* postbutton.jpg in Resources */,
+				8F30C7F31B6038A6009B7C5D /* profile_icon.png in Resources */,
+				8F30C7F01B6038A6009B7C5D /* logo_white.png in Resources */,
+				8F30C7F81B6038B0009B7C5D /* instagram.png in Resources */,
+				8F30C7EF1B6038A6009B7C5D /* beek_circl.png in Resources */,
+				8F30C7EE1B6038A6009B7C5D /* balloon.jpg in Resources */,
+				8F30C7F21B6038A6009B7C5D /* poweredByFoursquare.png in Resources */,
+				8F30C7F11B6038A6009B7C5D /* postbutton.jpg in Resources */,
+				8F30C7F71B6038B0009B7C5D /* facebook.png in Resources */,
+				8F30C7F91B6038B0009B7C5D /* twitter.png in Resources */,
+				8F30C7D91B60244D009B7C5D /* Apps.plist in Resources */,
+				8F30C7ED1B6038A6009B7C5D /* addButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

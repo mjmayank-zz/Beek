@@ -1,4 +1,4 @@
-//
+
 //  AppLauncherViewController.swift
 //  Beek
 //
@@ -11,19 +11,35 @@ import UIKit
 
 class AppLauncherDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegate{
  
+    
+    var array: [String] = NSUserDefaults.standardUserDefaults().objectForKey("apps")! as! [String]
+    var dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Apps", ofType: "plist")!)!
+    
+    override init() {
+        array = dict.allKeys as! [String]
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return array.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("defaultApp", forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("defaultApp", forIndexPath: indexPath) as! AppCell
+        let item : AnyObject = dict[array[indexPath.row]]!
+        let fileName : String = item["image"] as! String
+        cell.iconImageView.image = UIImage(named: fileName)
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-//        
-//        let myURL = NSURL(string: fullURL)
-//        UIApplication.sharedApplication().openURL(myURL!)
+        let item : AnyObject = dict[array[indexPath.row]]!
+        let url : String = item["url_scheme"] as! String
+        let myURL = NSURL(string: url)
+        UIApplication.sharedApplication().openURL(myURL!)
     }
     
+}
+
+class AppCell: UICollectionViewCell {
+    @IBOutlet var iconImageView: UIImageView!
 }

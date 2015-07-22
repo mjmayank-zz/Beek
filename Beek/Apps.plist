@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Twitter</key>
+	<dict>
+		<key>url_scheme</key>
+		<string>twitter://</string>
+		<key>image</key>
+		<string>twitter.png</string>
+	</dict>
+	<key>Facebook</key>
+	<dict>
+		<key>url_scheme</key>
+		<string>fb://</string>
+		<key>image</key>
+		<string>facebook.png</string>
+	</dict>
+	<key>Instagram</key>
+	<dict>
+		<key>url_scheme</key>
+		<string>instagram://</string>
+		<key>image</key>
+		<string>instagram.png</string>
+	</dict>
+</dict>
+</plist>
