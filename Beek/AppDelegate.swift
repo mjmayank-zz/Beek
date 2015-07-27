@@ -14,7 +14,7 @@ import QuadratTouch
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+//    var ldeledgate : LKDelegater?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             redirectURL:    "testapp123://foursquare")
         var configuration = Configuration(client:client)
         Session.setupSharedSessionWithConfiguration(configuration)
+        
+//        ldeledgate = LKDelegater()
+        //LocationKit Integration
+//        LocationKit.sharedInstance().startWithApiToken("0961455db144c71c", andDelegate: ldeledgate!)
         
         //Parse API Integration
         Parse.setApplicationId("75sRxIv4FG78YmOFLZuMn5hycdWfyPELYi1NF4Va", clientKey: "fJdZ5DWAVD5CVtPeGlUU1dlvW78dVRhwhkRVthcB")

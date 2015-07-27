@@ -37,7 +37,9 @@
 		8F00A0561B501C7A005AA0F1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */; };
 		8F00A05C1B504F5D005AA0F1 /* MyPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */; };
 		8F00A0661B505B51005AA0F1 /* FoursquareDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0651B505B51005AA0F1 /* FoursquareDataSource.swift */; };
-		8F1E62621B5FDF0A00B50000 /* teoco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8F1E62611B5FDF0A00B50000 /* teoco.gpx */; };
+		8F10208C1B66B90A005C6F0F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F10208B1B66B90A005C6F0F /* Social.framework */; };
+		8F10208F1B66B90F005C6F0F /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F10208E1B66B90F005C6F0F /* Accounts.framework */; };
+		8F1020931B66C00F005C6F0F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1020921B66C00F005C6F0F /* CoreMotion.framework */; };
 		8F30C7D91B60244D009B7C5D /* Apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7D81B60244D009B7C5D /* Apps.plist */; };
 		8F30C7ED1B6038A6009B7C5D /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E61B6038A6009B7C5D /* addButton.png */; };
 		8F30C7EE1B6038A6009B7C5D /* balloon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E71B6038A6009B7C5D /* balloon.jpg */; };
@@ -50,13 +52,22 @@
 		8F30C7F81B6038B0009B7C5D /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7F51B6038B0009B7C5D /* instagram.png */; };
 		8F30C7F91B6038B0009B7C5D /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7F61B6038B0009B7C5D /* twitter.png */; };
 		8F3BF6BF1B51650B00F56232 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BF6BE1B51650B00F56232 /* PostModel.swift */; };
+		8F4794431B6672E900A56906 /* groupme.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4794411B6672E900A56906 /* groupme.png */; };
+		8F4794441B6672E900A56906 /* pocket.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4794421B6672E900A56906 /* pocket.png */; };
 		8F5DD7681B5D4285005E2548 /* AppLauncherDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DD7671B5D4285005E2548 /* AppLauncherDataSource.swift */; };
 		8F5DD76B1B5D4DE2005E2548 /* SearchesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DD76A1B5D4DE2005E2548 /* SearchesDataSource.swift */; };
+		8F79A40B1B61305700270879 /* teoco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A40A1B61305700270879 /* teoco.gpx */; };
+		8F79A40D1B613F7D00270879 /* spotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A40C1B613F7D00270879 /* spotify.png */; };
+		8F79A40F1B61400B00270879 /* googlemaps.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A40E1B61400B00270879 /* googlemaps.png */; };
+		8F79A4121B617EB300270879 /* foursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A4101B617EB300270879 /* foursquare.png */; };
+		8F79A4131B617EB300270879 /* snapchat.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A4111B617EB300270879 /* snapchat.png */; };
+		8F8D2A361B66B51800703C81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8D2A351B66B51800703C81 /* MapKit.framework */; };
 		8FB005AE1B53FC9300839705 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005AD1B53FC9300839705 /* DBManager.swift */; };
 		8FB005B01B53FCBC00839705 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005AF1B53FCBC00839705 /* UserModel.swift */; };
 		8FB005B61B543CBA00839705 /* SearchWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB005B51B543CBA00839705 /* SearchWebViewController.swift */; };
 		8FC73F171B55517E008D3893 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC73F161B55517E008D3893 /* SettingsViewController.swift */; };
 		8FE3624F1B57F62A005302F7 /* QuadratTouch.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FE3624B1B57F5F8005302F7 /* QuadratTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C040C3E7254D3EC869635E44 /* libPods-Beek.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 002A5A47CB7BD54747A2F0D4 /* libPods-Beek.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		002A5A47CB7BD54747A2F0D4 /* libPods-Beek.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Beek.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F009FE71B4EBDF6005AA0F1 /* Beek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F009FEB1B4EBDF6005AA0F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F009FEC1B4EBDF6005AA0F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,7 +151,10 @@
 		8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostsViewController.swift; sourceTree = "<group>"; };
 		8F00A0651B505B51005AA0F1 /* FoursquareDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoursquareDataSource.swift; sourceTree = "<group>"; };
-		8F1E62611B5FDF0A00B50000 /* teoco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = teoco.gpx; sourceTree = "<group>"; };
+		8F10208B1B66B90A005C6F0F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		8F10208E1B66B90F005C6F0F /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		8F1020901B66BFED005C6F0F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		8F1020921B66C00F005C6F0F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8F30C7D81B60244D009B7C5D /* Apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Apps.plist; sourceTree = "<group>"; };
 		8F30C7E61B6038A6009B7C5D /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addButton.png; path = Assets/addButton.png; sourceTree = "<group>"; };
 		8F30C7E71B6038A6009B7C5D /* balloon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = balloon.jpg; path = Assets/balloon.jpg; sourceTree = "<group>"; };
@@ -152,13 +167,24 @@
 		8F30C7F51B6038B0009B7C5D /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = instagram.png; path = Assets/icons/instagram.png; sourceTree = "<group>"; };
 		8F30C7F61B6038B0009B7C5D /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twitter.png; path = Assets/icons/twitter.png; sourceTree = "<group>"; };
 		8F3BF6BE1B51650B00F56232 /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		8F4794411B6672E900A56906 /* groupme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = groupme.png; path = Assets/icons/groupme.png; sourceTree = "<group>"; };
+		8F4794421B6672E900A56906 /* pocket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pocket.png; path = Assets/icons/pocket.png; sourceTree = "<group>"; };
 		8F5DD7671B5D4285005E2548 /* AppLauncherDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLauncherDataSource.swift; sourceTree = "<group>"; };
 		8F5DD76A1B5D4DE2005E2548 /* SearchesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchesDataSource.swift; sourceTree = "<group>"; };
+		8F79A40A1B61305700270879 /* teoco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = teoco.gpx; sourceTree = "<group>"; };
+		8F79A40C1B613F7D00270879 /* spotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotify.png; path = Assets/icons/spotify.png; sourceTree = "<group>"; };
+		8F79A40E1B61400B00270879 /* googlemaps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = googlemaps.png; path = Assets/icons/googlemaps.png; sourceTree = "<group>"; };
+		8F79A4101B617EB300270879 /* foursquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = foursquare.png; path = Assets/icons/foursquare.png; sourceTree = "<group>"; };
+		8F79A4111B617EB300270879 /* snapchat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = snapchat.png; path = Assets/icons/snapchat.png; sourceTree = "<group>"; };
+		8F8D2A351B66B51800703C81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8F8D2A381B66B57700703C81 /* Beek-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Beek-Bridging-Header.h"; sourceTree = "<group>"; };
 		8FB005AD1B53FC9300839705 /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		8FB005AF1B53FCBC00839705 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		8FB005B51B543CBA00839705 /* SearchWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWebViewController.swift; sourceTree = "<group>"; };
 		8FC73F161B55517E008D3893 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8FE362431B57F5F8005302F7 /* Quadrat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quadrat.xcodeproj; path = "../../beek_old/Beek/das-quadrat/Source/Quadrat.xcodeproj"; sourceTree = "<group>"; };
+		DFF11983F002CEE3AE7DD08A /* Pods-Beek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beek.release.xcconfig"; path = "Pods/Target Support Files/Pods-Beek/Pods-Beek.release.xcconfig"; sourceTree = "<group>"; };
+		F455F99DE27AEB9F03BD008E /* Pods-Beek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beek.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beek/Pods-Beek.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +192,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F1020931B66C00F005C6F0F /* CoreMotion.framework in Frameworks */,
+				8F10208F1B66B90F005C6F0F /* Accounts.framework in Frameworks */,
+				8F10208C1B66B90A005C6F0F /* Social.framework in Frameworks */,
+				8F8D2A361B66B51800703C81 /* MapKit.framework in Frameworks */,
 				8F00A04E1B501849005AA0F1 /* ParseFacebookUtils.framework in Frameworks */,
 				8F00A0101B4EBE27005AA0F1 /* AudioToolbox.framework in Frameworks */,
 				8F00A01C1B4EBE6E005AA0F1 /* SystemConfiguration.framework in Frameworks */,
@@ -182,6 +212,7 @@
 				8F00A0201B4EBE6E005AA0F1 /* QuartzCore.framework in Frameworks */,
 				8F00A04D1B501849005AA0F1 /* ParseCrashReporting.framework in Frameworks */,
 				8F00A04F1B501849005AA0F1 /* ParseFacebookUtilsV4.framework in Frameworks */,
+				C040C3E7254D3EC869635E44 /* libPods-Beek.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,13 +226,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2505985B8805E997BADA80B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F455F99DE27AEB9F03BD008E /* Pods-Beek.debug.xcconfig */,
+				DFF11983F002CEE3AE7DD08A /* Pods-Beek.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8F009FDE1B4EBDF6005AA0F1 = {
 			isa = PBXGroup;
 			children = (
-				8F1E62611B5FDF0A00B50000 /* teoco.gpx */,
 				8F009FE91B4EBDF6005AA0F1 /* Beek */,
 				8F009FFF1B4EBDF6005AA0F1 /* BeekTests */,
 				8F009FE81B4EBDF6005AA0F1 /* Products */,
+				2505985B8805E997BADA80B1 /* Pods */,
+				E4FD1F63337B5B0D6F2C94FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,6 +286,7 @@
 		8F009FEA1B4EBDF6005AA0F1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8F79A40A1B61305700270879 /* teoco.gpx */,
 				8FE362431B57F5F8005302F7 /* Quadrat.xcodeproj */,
 				8F00A0451B501849005AA0F1 /* Bolts.framework */,
 				8F00A0461B501849005AA0F1 /* Parse.framework */,
@@ -264,6 +306,7 @@
 				8F00A00E1B4EBE27005AA0F1 /* CoreLocation.framework */,
 				8F00A00F1B4EBE27005AA0F1 /* libsqlite3.dylib */,
 				8F009FEB1B4EBDF6005AA0F1 /* Info.plist */,
+				8F8D2A381B66B57700703C81 /* Beek-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -288,6 +331,12 @@
 		8F30C7DF1B603857009B7C5D /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				8F4794411B6672E900A56906 /* groupme.png */,
+				8F4794421B6672E900A56906 /* pocket.png */,
+				8F79A4101B617EB300270879 /* foursquare.png */,
+				8F79A4111B617EB300270879 /* snapchat.png */,
+				8F79A40E1B61400B00270879 /* googlemaps.png */,
+				8F79A40C1B613F7D00270879 /* spotify.png */,
 				8F30C7F41B6038B0009B7C5D /* facebook.png */,
 				8F30C7F51B6038B0009B7C5D /* instagram.png */,
 				8F30C7F61B6038B0009B7C5D /* twitter.png */,
@@ -329,6 +378,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E4FD1F63337B5B0D6F2C94FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F1020921B66C00F005C6F0F /* CoreMotion.framework */,
+				8F1020901B66BFED005C6F0F /* Accelerate.framework */,
+				8F10208E1B66B90F005C6F0F /* Accounts.framework */,
+				8F10208B1B66B90A005C6F0F /* Social.framework */,
+				8F8D2A351B66B51800703C81 /* MapKit.framework */,
+				002A5A47CB7BD54747A2F0D4 /* libPods-Beek.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -336,10 +398,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F00A0061B4EBDF6005AA0F1 /* Build configuration list for PBXNativeTarget "Beek" */;
 			buildPhases = (
+				51107619CE7ED4C629773AFC /* Check Pods Manifest.lock */,
 				8F009FE31B4EBDF6005AA0F1 /* Sources */,
 				8F009FE41B4EBDF6005AA0F1 /* Frameworks */,
 				8F009FE51B4EBDF6005AA0F1 /* Resources */,
 				8FE3624E1B57F61C005302F7 /* CopyFiles */,
+				D86AEABACF55FF0AB3B55D3C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -381,6 +445,11 @@
 					8F009FE61B4EBDF6005AA0F1 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 9C8EQ3DGNG;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					8F009FFB1B4EBDF6005AA0F1 = {
 						CreatedOnToolsVersion = 6.4;
@@ -436,20 +505,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F009FF21B4EBDF6005AA0F1 /* Main.storyboard in Resources */,
+				8F79A4131B617EB300270879 /* snapchat.png in Resources */,
+				8F4794441B6672E900A56906 /* pocket.png in Resources */,
 				8F009FF71B4EBDF6005AA0F1 /* LaunchScreen.xib in Resources */,
-				8F1E62621B5FDF0A00B50000 /* teoco.gpx in Resources */,
 				8F009FF41B4EBDF6005AA0F1 /* Images.xcassets in Resources */,
 				8F30C7F31B6038A6009B7C5D /* profile_icon.png in Resources */,
 				8F30C7F01B6038A6009B7C5D /* logo_white.png in Resources */,
 				8F30C7F81B6038B0009B7C5D /* instagram.png in Resources */,
 				8F30C7EF1B6038A6009B7C5D /* beek_circl.png in Resources */,
 				8F30C7EE1B6038A6009B7C5D /* balloon.jpg in Resources */,
+				8F4794431B6672E900A56906 /* groupme.png in Resources */,
 				8F30C7F21B6038A6009B7C5D /* poweredByFoursquare.png in Resources */,
 				8F30C7F11B6038A6009B7C5D /* postbutton.jpg in Resources */,
 				8F30C7F71B6038B0009B7C5D /* facebook.png in Resources */,
+				8F79A40F1B61400B00270879 /* googlemaps.png in Resources */,
 				8F30C7F91B6038B0009B7C5D /* twitter.png in Resources */,
+				8F79A40D1B613F7D00270879 /* spotify.png in Resources */,
+				8F79A4121B617EB300270879 /* foursquare.png in Resources */,
 				8F30C7D91B60244D009B7C5D /* Apps.plist in Resources */,
 				8F30C7ED1B6038A6009B7C5D /* addButton.png in Resources */,
+				8F79A40B1B61305700270879 /* teoco.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +536,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		51107619CE7ED4C629773AFC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D86AEABACF55FF0AB3B55D3C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Beek/Pods-Beek-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F009FE31B4EBDF6005AA0F1 /* Sources */ = {
@@ -615,8 +723,10 @@
 		};
 		8F00A0071B4EBDF6005AA0F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F455F99DE27AEB9F03BD008E /* Pods-Beek.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -627,15 +737,29 @@
 				INFOPLIST_FILE = Beek/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"LocationKit\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Beek/Beek-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		8F00A0081B4EBDF6005AA0F1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFF11983F002CEE3AE7DD08A /* Pods-Beek.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -646,8 +770,19 @@
 				INFOPLIST_FILE = Beek/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"LocationKit\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Beek/Beek-Bridging-Header.h";
 			};
 			name = Release;
 		};

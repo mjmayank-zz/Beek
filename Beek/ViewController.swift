@@ -46,6 +46,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         foursquareCollectionView.delegate = fsDataSource
         appLauncher.dataSource = appsDataSource
         appLauncher.delegate = appsDataSource
+        appsDataSource.delegate = self
         searchesCollectionView.dataSource = searchesDataSource
         searchesCollectionView.delegate = searchesDataSource
         
@@ -270,6 +271,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                 search.setObject(PFUser.currentUser()!, forKey: "user")
                 var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
                 search.setObject(geoPoint, forKey: "location")
+                
+                var item : [String: AnyObject]? = fsDataSource.getSelectedPlace()
+                if item != nil{
+                    if let venueInfo = item!["venue"] as? [String : AnyObject]{
+                        search.setObject(venueInfo["id"]!, forKey: "foursqure_id")
+                        search.setObject(venueInfo["name"] as! String, forKey: "venue_name")
+                        if let categoryArray = venueInfo["categories"] as? [JSONParameters]{
+                            search.setObject(categoryArray[0]["name"]!, forKey: "venue_category")
+                        }
+                    }
+                }
+                
                 search.saveInBackgroundWithBlock(nil)
             }
             self.searchTextField.resignFirstResponder()
@@ -312,5 +325,11 @@ extension CLLocation {
             Parameter.altAcc:altAcc
         ]
         return parameters
+    }
+}
+
+class LKDelegater : NSObject, LocationKitDelegate{
+    func locationKit(locationKit: LocationKit!, didUpdateLocation location: CLLocation!) {
+        
     }
 }
