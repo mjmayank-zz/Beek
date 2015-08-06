@@ -9,20 +9,21 @@
 import UIKit
 import CoreLocation
 import Foundation
-import Parse
 import QuadratTouch
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
 
     let manager = CLLocationManager()
-    var searchResults : [PFObject]?
+    var likelihoods : [GMSPlaceLikelihood]?
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
     var fsDataSource = FoursquareView()
     var appsDataSource : AppLauncherDataSource!
     var searchesDataSource = SearchesDataSource()
+    var contextDataSources = [ContextDataSource]()
     var cache = NSCache()
     var session : Session!
+    let placesClient = GMSPlacesClient()
     
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
@@ -77,7 +78,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if let location = manager.location{
-            self.queryObjects(location)
+            if let oldLocation = self.oldLocation{
+                if(location.distanceFromLocation(oldLocation) > 100){
+                    self.oldLocation = location
+                    self.queryObjects(location)
+                }
+            }
+            else{
+                self.oldLocation = location
+                self.queryObjects(location)
+            }
         }
     }
 
@@ -95,31 +105,126 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
 
     func collectionView(collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int{
-            if (self.searchResults != nil){
-                return self.searchResults!.count
-            }
-            return 0
+            return self.contextDataSources.count
     }
     
     func queryObjects(location: CLLocation!){
         if(location == nil){
             return
         }
-        var query = PFQuery(className: "Post")
-        var point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        query.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
+        
+        var parameterString = [String : AnyObject]()
+        parameterString["location"] = String(format:"%f,%f", location.coordinate.latitude, location.coordinate.longitude)
+        parameterString["radius"] = String(format:"%f",location.horizontalAccuracy)
+        parameterString["key"] = "AIzaSyAr8JVdMDs82_bUCQtPrkNyq7XuikcmkhQ"
+        let string = parameterString.stringFromHttpParameters()
+        
+        let url = NSURL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?\(string)")
+        
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+            let json = JSON(data: data)
+        }
+        
+        task.resume()
+        
+        self.contextDataSources = [ContextDataSource]()
+        
+        placesClient.currentPlaceWithCallback({ (placeLikelihoodList: GMSPlaceLikelihoodList?, error: NSError?) -> Void in
+            if let error = error {
+                println("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLicklihoodList = placeLikelihoodList {
+                self.likelihoods = placeLicklihoodList.likelihoods as? [GMSPlaceLikelihood]
+                for (index, likelihood) in enumerate(self.likelihoods!){
+                    var accuracy = location.horizontalAccuracy > 50 ? location.horizontalAccuracy : 50
+                    if (location.distanceFromLocation(CLLocation(latitude: likelihood.place.coordinate.latitude, longitude: likelihood.place.coordinate.longitude)) < accuracy){
+                        
+                        let place = likelihood.place
+                        var query = PFQuery(className: "Posts")
+                        query.whereKey("googlePlacesId", equalTo: place.placeID)
+                        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
+                            if(error != nil){
+                                print(error)
+                            }
+                            else{
+                                if(results != nil){
+                                    var cds = ContextDataSource(results: results!)
+                                    cds.viewController = self
+                                    let context = Context()
+                                    context.title = place.name
+                                    if index == 0{
+                                        context.subtitle = "Because you're at"
+                                    }
+                                    else{
+                                        context.subtitle = "Because you're near"
+                                    }
+                                    cds.context = context
+                                    self.contextDataSources.append(cds)
+                                    self.collectionView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        
+        //date view controller
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitSecond, fromDate: date)
+        let hour = components.hour
+        let minutes = components.minute
+        let seconds = components.second
+        
+        var current_time = hour * 60 * 60 + minutes * 60 + seconds
+        var query = PFQuery(className: "Time")
+        query.whereKey("start_time", lessThan: current_time)
+        query.whereKey("end_time", greaterThan: current_time)
         
         query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
             if(error != nil){
                 print(error)
             }
             else{
-                if(results != nil){
-                    self.searchResults = results as? [PFObject]
+                if let results = results{
+                    for result in results{
+                        var obj = result as! PFObject
+                        var new_query = PFQuery(className: "Posts")
+                        new_query.whereKey("timeId", equalTo: obj.objectId!)
+                        new_query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
+                            var cds = ContextDataSource(results: posts!)
+                            cds.viewController = self
+                            var context = Context()
+                            context.title = obj.objectForKey("title") as? String
+                            context.subtitle = "Because it is"
+                            cds.context = context
+                            self.contextDataSources.append(cds)
+                            self.collectionView.reloadData()
+                        })
+                    }
                 }
             }
-            self.collectionView.reloadData()
         }
+
+        //Old Parse query
+//        var query = PFQuery(className: "Post")
+        var point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//        query.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
+//        
+//        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
+//            if(error != nil){
+//                print(error)
+//            }
+//            else{
+//                if(results != nil){
+//                    self.searchResults = results as? [PFObject]
+//                }
+//            }
+//            self.collectionView.reloadData()
+//        }
         
         var searchesQuery = PFQuery(className: "Search")
         searchesQuery.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
@@ -138,86 +243,80 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func collectionView(collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("localPostCell", forIndexPath: indexPath) as! localPostCell
-            
-            if let items = searchResults{
-                let object :PFObject = items[indexPath.row]
-                cell.label.text = items[indexPath.row].objectForKey("title") as? String
-                cell.bodyLabel.text = items[indexPath.row].objectForKey("body") as? String
-                cell.object = items[indexPath.row]
-                
-                let cell_key = object.objectId
-                
-                if(object.objectForKey("image") == nil){
-                    cell.backgroundImage.hidden = true
-                    cell.overlayView.hidden = true
-                }
-                else{
-                    cell.backgroundImage.hidden = false
-                    cell.overlayView.hidden = false
-                    if((self.cache.objectForKey(object.objectId!)) != nil){
-                        cell.backgroundImage.image = self.cache.objectForKey(object.objectId!) as? UIImage
-                    }
-                    else{
-                        if let file : PFFile = object.objectForKey("image") as? PFFile{
-                            file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
-                                if(error != nil){
-                                    
-                                }
-                                else{
-                                    var file = data
-                                    var bgImage = UIImage(data: file!)
-                                    self.cache.setObject(bgImage!, forKey: cell_key!)
-                                    cell.backgroundImage.image = bgImage
-                                }
-                            })
-                        }
-                    }
-                }
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("contextCardCell", forIndexPath: indexPath) as! contextCardCell
+            var ds = contextDataSources[indexPath.row]
+            cell.collectionView.dataSource = ds
+            cell.collectionView.delegate = ds
+            cell.collectionView.reloadData()
+
+            if let context = ds.context{
+                cell.contextNameLabel.text = context.title
+                cell.label.text = context.subtitle
             }
+//            if(ds.searchResults?.count == 0){
+//                cell.hidden = true
+//            }
+//            else{
+//                cell.hidden = false
+//            }
+            
+            
+//            if let items = searchResults{
+//                let object :PFObject = items[indexPath.row]
+//                cell.label.text = items[indexPath.row].objectForKey("title") as? String
+//                cell.bodyLabel.text = items[indexPath.row].objectForKey("body") as? String
+//                cell.object = items[indexPath.row]
+//                
+//                let cell_key = object.objectId
+//                
+//                if(object.objectForKey("image") == nil){
+//                    cell.backgroundImage.hidden = true
+//                    cell.overlayView.hidden = true
+//                }
+//                else{
+//                    cell.backgroundImage.hidden = false
+//                    cell.overlayView.hidden = false
+//                    if((self.cache.objectForKey(object.objectId!)) != nil){
+//                        cell.backgroundImage.image = self.cache.objectForKey(object.objectId!) as? UIImage
+//                    }
+//                    else{
+//                        if let file : PFFile = object.objectForKey("image") as? PFFile{
+//                            file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
+//                                if(error != nil){
+//                                    
+//                                }
+//                                else{
+//                                    var file = data
+//                                    var bgImage = UIImage(data: file!)
+//                                    self.cache.setObject(bgImage!, forKey: cell_key!)
+//                                    cell.backgroundImage.image = bgImage
+//                                }
+//                            })
+//                        }
+//                    }
+//                }
+//            }
         
             return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let items = searchResults{
-            if items[indexPath.row].objectForKey("url") as? String != nil && items[indexPath.row].objectForKey("url") as? String != ""{
-                var fullURL = ""
-                if let url = items[indexPath.row].objectForKey("url") as? String{
-                    fullURL = url
-                }
-                let endIndex = advance(fullURL.startIndex, 4)
-                var start = fullURL.substringToIndex(endIndex)
-                if(start == "http"){
-                    self.performSegueWithIdentifier("toWebView", sender: self)
-                }
-                else{
-                    //how to launch an app
-                    let myURL = NSURL(string: fullURL)
-                    UIApplication.sharedApplication().openURL(myURL!)
-                }
-            }
-            else{
-                self.performSegueWithIdentifier("toDetail", sender: self)
-            }
-        }
-    }
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if(self.view.bounds.width > 400){
-            return CGSize(width:self.view.bounds.width/3-10, height:self.view.bounds.width/3-10)
-        }
-        return CGSize(width:self.view.bounds.width/2-10, height:self.view.bounds.width/2-10)
+//        var ds = contextDataSources[indexPath.row]
+//        if(ds.searchResults?.count == 0){
+//            return CGSize(width:self.view.bounds.width, height:0)
+//        }
+        return CGSize(width:self.view.bounds.width, height:200)
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var newLocation = locations[0] as! CLLocation
+        
         if(newLocation.distanceFromLocation(oldLocation) > 100){
             oldLocation = newLocation
             queryObjects(newLocation)
             let location = self.manager.location
             var parameters = location.parameters()
-            parameters["radius"] = "500"
+            parameters["radius"] = parameters["llAcc"]
             let task = self.session.venues.explore(parameters) {
                 (result) -> Void in
                 if self.fsDataSource.venueItems != nil {
@@ -256,12 +355,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         println(segue.identifier)
         if segue.identifier == "toDetail"{
             var destVC = segue.destinationViewController as! DetailViewController
-            destVC.detailObject = PostModel(object:self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
+            var cds = sender as! ContextDataSource
+            destVC.detailObject =   PostModel(object:cds.searchResults![cds.selectedIndex!.row])
         }
         else if(segue.identifier == "toWebView"){
-            
             var destVC = segue.destinationViewController as! WebViewController
-            destVC.detailObject = PostModel(object: self.searchResults![collectionView.indexPathsForSelectedItems()[0].row])
+            var cds = sender as! ContextDataSource
+            destVC.detailObject = PostModel(object: cds.searchResults![cds.selectedIndex!.row])
         }
         
         else if(segue.identifier == "searched"){
@@ -294,22 +394,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             let cell = sender as! searchesCell
             destVC.query = cell.searchLabel.text
         }
+        else if(segue.identifier == "feedToCreatePost"){
+            let destVC = segue.destinationViewController as! CreatePostViewController
+            destVC.ppDataSource.placesList = self.likelihoods
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.performSegueWithIdentifier("searched", sender: self)
         return true
     }
-    
 }
 
-class localPostCell : UICollectionViewCell{
+class contextCardCell : UICollectionViewCell{
     @IBOutlet var label: UILabel!
-    @IBOutlet var bodyLabel: UILabel!
-    @IBOutlet var backgroundImage: UIImageView!
-    @IBOutlet var overlayView: UIView!
-    
-    var object : PFObject!
+    @IBOutlet var contextNameLabel: UILabel!
+    @IBOutlet var collectionView: UICollectionView!
 }
 
 extension CLLocation {
@@ -328,8 +428,44 @@ extension CLLocation {
     }
 }
 
-class LKDelegater : NSObject, LocationKitDelegate{
-    func locationKit(locationKit: LocationKit!, didUpdateLocation location: CLLocation!) {
+extension String {
+    
+    /// Percent escape value to be added to a URL query value as specified in RFC 3986
+    ///
+    /// This percent-escapes all characters besize the alphanumeric character set and "-", ".", "_", and "~".
+    ///
+    /// http://www.ietf.org/rfc/rfc3986.txt
+    ///
+    /// :returns: Return precent escaped string.
+    
+    func stringByAddingPercentEncodingForURLQueryValue() -> String? {
+        let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()
+        characterSet.addCharactersInString("-._~")
         
+        return self.stringByAddingPercentEncodingWithAllowedCharacters(characterSet)
     }
+    
 }
+
+extension Dictionary {
+    
+    /// Build string representation of HTTP parameter dictionary of keys and objects
+    ///
+    /// This percent escapes in compliance with RFC 3986
+    ///
+    /// http://www.ietf.org/rfc/rfc3986.txt
+    ///
+    /// :returns: String representation in the form of key1=value1&key2=value2 where the keys and values are percent escaped
+    
+    func stringFromHttpParameters() -> String {
+        let parameterArray = map(self) { (key, value) -> String in
+            let percentEscapedKey = (key as? String)!.stringByAddingPercentEncodingForURLQueryValue()!
+            let percentEscapedValue = (value as? String)!.stringByAddingPercentEncodingForURLQueryValue()!
+            return "\(percentEscapedKey)=\(percentEscapedValue)"
+        }
+        
+        return join("&", parameterArray)
+    }
+    
+}
+

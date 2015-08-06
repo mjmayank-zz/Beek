@@ -9,14 +9,15 @@
 import Foundation
 import UIKit
 import MapKit
-import Parse
+
 
 class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewDelegate{
     
     var postURL : String?
     var image : UIImage?
     let manager = CLLocationManager()
-    
+    var ppDataSource = PlacePickerDataSource()
+    var timeDataSource = TimePickerDataSource()
 
     @IBOutlet var bodyTextField: UITextField!
     @IBOutlet var titleTextField: UITextField!
@@ -24,6 +25,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     @IBOutlet var urlTextField: UITextField!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var containerView: UIView!
+    @IBOutlet var placePicker: UICollectionView!
+    @IBOutlet var timePicker: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +34,27 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: (NSKeyValueObservingOptions.New|NSKeyValueObservingOptions.Old), context: nil)
         self.mapView.delegate = self
         
+        self.placePicker.dataSource = ppDataSource
+        self.placePicker.delegate = ppDataSource
+        
+        self.timePicker.dataSource = timeDataSource
+        self.timePicker.delegate = timeDataSource
+        
         self.titleTextField.becomeFirstResponder()
         
         if let url = postURL{
             self.urlTextField.text = url
+        }
+        
+        var query = PFQuery(className: "Time")
+        query.findObjectsInBackgroundWithBlock { (response:[AnyObject]?, error:NSError?) -> Void in
+            if(error != nil){
+                println(error)
+            }
+            else{
+                self.timeDataSource.timeList = response as? [PFObject]
+                self.timePicker.reloadData()
+            }
         }
         
         var leftConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: CGFloat(1.0), constant: CGFloat(0))
@@ -112,6 +132,12 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         let annotation : MKAnnotation = self.mapView.annotations[0] as! MKAnnotation
         var location = annotation.coordinate
         var object = PostModel(title: title, body: body, url: url, authorID: PFUser.currentUser()!.objectId!, location: location)
+        if let place = self.ppDataSource.selectedPlace{
+            object.placeId = place.placeID
+        }
+        if let time = self.timeDataSource.selectedObj{
+            object.timeId = time.objectId
+        }
         if let bgImage = image{
             object.image = bgImage
         }

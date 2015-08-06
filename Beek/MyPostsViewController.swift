@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Parse
 
 class MyPostsViewController:UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, myPostCellDelegate {
     @IBOutlet var collectionView: UICollectionView!

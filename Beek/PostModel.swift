@@ -8,15 +8,16 @@
 
 import Foundation
 import CoreLocation
-import Parse
 
 class PostModel{
     var title : String!
     var body : String!
     var url : String!
     var authorID : String!
-    var location : CLLocationCoordinate2D!
+    var location : CLLocationCoordinate2D?
     var image : UIImage?
+    var placeId : String?
+    var timeId : String?
     
     var parseObj : PFObject!
     
@@ -26,7 +27,7 @@ class PostModel{
         self.url = url
         self.authorID = authorID
         self.location = location
-        self.parseObj = PFObject(className: "Post")
+        self.parseObj = PFObject(className: "Posts")
     }
     
     init(object: PFObject){
@@ -35,7 +36,9 @@ class PostModel{
         self.url = object.objectForKey("url") as? String
         self.authorID = object.objectForKey("authorID") as? String
         var geoPoint = object.objectForKey("location") as? PFGeoPoint
-        self.location = CLLocationCoordinate2D(latitude: geoPoint!.latitude, longitude: geoPoint!.longitude)
+        if let geoPoint = geoPoint{
+            self.location = CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
+        }
         
         self.parseObj = object
     }
@@ -54,8 +57,18 @@ class PostModel{
         user.objectId = authorID
         parseObj.setObject(user, forKey: "author")
         
-        var geoPoint = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
-        parseObj.setObject(geoPoint, forKey: "location")
+        if let location = location{
+            var geoPoint = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
+            parseObj.setObject(geoPoint, forKey: "location")
+        }
+        
+        if let place = placeId{
+            parseObj.setObject(place, forKey: "googlePlacesId")
+        }
+        
+        if let time = timeId{
+            parseObj.setObject(time, forKey: "timeId")
+        }
         
         if let objImage = image{
             var jpegImage = UIImageJPEGRepresentation(objImage, 1.0)

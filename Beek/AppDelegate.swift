@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import Parse
 import QuadratTouch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-//    var ldeledgate : LKDelegater?
+//    let locationManager = LocationManager()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -26,12 +25,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var configuration = Configuration(client:client)
         Session.setupSharedSessionWithConfiguration(configuration)
         
-//        ldeledgate = LKDelegater()
+        //GoogleMaps API Integratrion
+        GMSServices.provideAPIKey("AIzaSyBkIJEcKGgna1xVqCKKhdkifo91TvjYI18")
+        
         //LocationKit Integration
-//        LocationKit.sharedInstance().startWithApiToken("0961455db144c71c", andDelegate: ldeledgate!)
+//        let locationKit = LocationKit.sharedInstance()
+//        locationKit.startWithApiToken("0961455db144c71c", andDelegate: self.locationManager)
         
         //Parse API Integration
         Parse.setApplicationId("75sRxIv4FG78YmOFLZuMn5hycdWfyPELYi1NF4Va", clientKey: "fJdZ5DWAVD5CVtPeGlUU1dlvW78dVRhwhkRVthcB")
+        
+        UINavigationBar.appearance().barTintColor = UIColor(red: 17.0/255, green: 119.0/255, blue: 170.0/255, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         var storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Parse
 
 class SearchesDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegate{
     

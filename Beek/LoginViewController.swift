@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Parse
 
 class LoginViewController : UIViewController{
     @IBOutlet var usernameTextField: UITextField!
