@@ -13,15 +13,29 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
     
     var context : Context?
     var searchResults : [PFObject]?
+    var collectionView : UICollectionView?
     var viewController : UIViewController?
     var selectedIndex : NSIndexPath?
+    var cache = NSCache()
     
-    init(results: [AnyObject]){
+    init(type: String, id: String){
         super.init()
         self.searchResults = [PFObject]()
-        for result in results{
-            self.searchResults?.append(result as! PFObject)
-        }
+        
+        cache.countLimit = 50
+        
+        var query = PFQuery(className: "Posts")
+        query.whereKey(type, equalTo: id)
+        query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
+            if let posts = posts{
+                for post in posts{
+                    self.searchResults?.append(post as! PFObject)
+                }
+                if let collectionView = self.collectionView{
+                    collectionView.reloadData()
+                }
+            }
+        })
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -38,6 +52,35 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
             let item : PFObject = items[indexPath.row]
             cell.titleLabel.text = item.objectForKey("title") as? String
             cell.bodyLabel.text = item.objectForKey("body") as? String
+            
+            let itemID = item.objectId
+            
+            if(item.objectForKey("image") == nil){
+                cell.backgroundImage.hidden = true
+                cell.overlayView.hidden = true
+            }
+            else{
+                cell.backgroundImage.hidden = false
+                cell.overlayView.hidden = false
+                if((self.cache.objectForKey(item.objectId!)) != nil){
+                    cell.backgroundImage.image = self.cache.objectForKey(item.objectId!) as? UIImage
+                }
+                else{
+                    if let file : PFFile = item.objectForKey("image") as? PFFile{
+                        file.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
+                            if(error != nil){
+                                
+                            }
+                            else{
+                                var file = data
+                                var bgImage = UIImage(data: file!)
+                                self.cache.setObject(bgImage!, forKey: itemID!)
+                                cell.backgroundImage.image = bgImage
+                            }
+                        })
+                    }
+                }
+            }
         }
         
         return cell
@@ -80,6 +123,8 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
 class contextCell : UICollectionViewCell{
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
+    @IBOutlet var backgroundImage: UIImageView!
+    @IBOutlet var overlayView: UIView!
 }
 
 class Context {

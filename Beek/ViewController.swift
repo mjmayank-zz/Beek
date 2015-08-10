@@ -11,19 +11,16 @@ import CoreLocation
 import Foundation
 import QuadratTouch
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
+class ViewController: UIViewController, ContextManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
 
-    let manager = CLLocationManager()
-    var likelihoods : [GMSPlaceLikelihood]?
     var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var refreshControl:UIRefreshControl!
     var fsDataSource = FoursquareView()
     var appsDataSource : AppLauncherDataSource!
     var searchesDataSource = SearchesDataSource()
     var contextDataSources = [ContextDataSource]()
-    var cache = NSCache()
     var session : Session!
-    let placesClient = GMSPlacesClient()
+    var contextManager = ContextManager.sharedInstance
     
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var collectionView: UICollectionView!
@@ -35,27 +32,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        appsDataSource = AppLauncherDataSource(manager: manager)
+        appsDataSource = AppLauncherDataSource()
         
         session = Session.sharedSession()
-        
-        cache.countLimit = 50
         
         collectionView.delegate = self
         collectionView.dataSource = self
         foursquareCollectionView.dataSource = fsDataSource
         foursquareCollectionView.delegate = fsDataSource
+        foursquareCollectionView.scrollsToTop = false
         appLauncher.dataSource = appsDataSource
         appLauncher.delegate = appsDataSource
+        appLauncher.scrollsToTop = false
         appsDataSource.delegate = self
         searchesCollectionView.dataSource = searchesDataSource
         searchesCollectionView.delegate = searchesDataSource
+        searchesCollectionView.scrollsToTop = false
         
-        manager.delegate = self
-        if CLLocationManager.authorizationStatus() == .NotDetermined {
-            manager.requestWhenInUseAuthorization()
-        }
-        manager.startUpdatingLocation()
+        contextManager.delegate = self
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
@@ -77,7 +71,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let location = manager.location{
+        if let location = contextManager.locationManager.location{
             if let oldLocation = self.oldLocation{
                 if(location.distanceFromLocation(oldLocation) > 100){
                     self.oldLocation = location
@@ -90,11 +84,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             }
         }
     }
+    
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        return scrollView == self.collectionView
+    }
 
     func refresh(sender:AnyObject)
     {
         // Code to refresh table view
-        queryObjects(manager.location)
+        contextManager.refresh()
+        queryObjects(contextManager.locationManager.location)
         self.refreshControl.endRefreshing()
     }
     
@@ -109,125 +108,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func queryObjects(location: CLLocation!){
-        if(location == nil){
-            return
-        }
-        
-        var parameterString = [String : AnyObject]()
-        parameterString["location"] = String(format:"%f,%f", location.coordinate.latitude, location.coordinate.longitude)
-        parameterString["radius"] = String(format:"%f",location.horizontalAccuracy)
-        parameterString["key"] = "AIzaSyAr8JVdMDs82_bUCQtPrkNyq7XuikcmkhQ"
-        let string = parameterString.stringFromHttpParameters()
-        
-        let url = NSURL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?\(string)")
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-            let json = JSON(data: data)
-        }
-        
-        task.resume()
-        
-        self.contextDataSources = [ContextDataSource]()
-        
-        placesClient.currentPlaceWithCallback({ (placeLikelihoodList: GMSPlaceLikelihoodList?, error: NSError?) -> Void in
-            if let error = error {
-                println("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placeLicklihoodList = placeLikelihoodList {
-                self.likelihoods = placeLicklihoodList.likelihoods as? [GMSPlaceLikelihood]
-                for (index, likelihood) in enumerate(self.likelihoods!){
-                    var accuracy = location.horizontalAccuracy > 50 ? location.horizontalAccuracy : 50
-                    if (location.distanceFromLocation(CLLocation(latitude: likelihood.place.coordinate.latitude, longitude: likelihood.place.coordinate.longitude)) < accuracy){
-                        
-                        let place = likelihood.place
-                        var query = PFQuery(className: "Posts")
-                        query.whereKey("googlePlacesId", equalTo: place.placeID)
-                        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
-                            if(error != nil){
-                                print(error)
-                            }
-                            else{
-                                if(results != nil){
-                                    var cds = ContextDataSource(results: results!)
-                                    cds.viewController = self
-                                    let context = Context()
-                                    context.title = place.name
-                                    if index == 0{
-                                        context.subtitle = "Because you're at"
-                                    }
-                                    else{
-                                        context.subtitle = "Because you're near"
-                                    }
-                                    cds.context = context
-                                    self.contextDataSources.append(cds)
-                                    self.collectionView.reloadData()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        })
-        
-        //date view controller
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitSecond, fromDate: date)
-        let hour = components.hour
-        let minutes = components.minute
-        let seconds = components.second
-        
-        var current_time = hour * 60 * 60 + minutes * 60 + seconds
-        var query = PFQuery(className: "Time")
-        query.whereKey("start_time", lessThan: current_time)
-        query.whereKey("end_time", greaterThan: current_time)
-        
-        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
-            if(error != nil){
-                print(error)
-            }
-            else{
-                if let results = results{
-                    for result in results{
-                        var obj = result as! PFObject
-                        var new_query = PFQuery(className: "Posts")
-                        new_query.whereKey("timeId", equalTo: obj.objectId!)
-                        new_query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
-                            var cds = ContextDataSource(results: posts!)
-                            cds.viewController = self
-                            var context = Context()
-                            context.title = obj.objectForKey("title") as? String
-                            context.subtitle = "Because it is"
-                            cds.context = context
-                            self.contextDataSources.append(cds)
-                            self.collectionView.reloadData()
-                        })
-                    }
-                }
-            }
-        }
-
-        //Old Parse query
-//        var query = PFQuery(className: "Post")
         var point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//        query.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
-//        
-//        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
-//            if(error != nil){
-//                print(error)
-//            }
-//            else{
-//                if(results != nil){
-//                    self.searchResults = results as? [PFObject]
-//                }
-//            }
-//            self.collectionView.reloadData()
-//        }
         
         var searchesQuery = PFQuery(className: "Search")
-        searchesQuery.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
+        searchesQuery.whereKey("location", nearGeoPoint: point, withinMiles:0.5)
         searchesQuery.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
             if(error != nil){
                 print(error)
@@ -247,6 +131,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             var ds = contextDataSources[indexPath.row]
             cell.collectionView.dataSource = ds
             cell.collectionView.delegate = ds
+            cell.collectionView.scrollsToTop = false
             cell.collectionView.reloadData()
 
             if let context = ds.context{
@@ -309,12 +194,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var newLocation = locations[0] as! CLLocation
+        var newLocation = locations.last as! CLLocation
         
         if(newLocation.distanceFromLocation(oldLocation) > 100){
             oldLocation = newLocation
             queryObjects(newLocation)
-            let location = self.manager.location
+            let location = newLocation
             var parameters = location.parameters()
             parameters["radius"] = parameters["llAcc"]
             let task = self.session.venues.explore(parameters) {
@@ -369,7 +254,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                 var search = PFObject(className: "Search")
                 search.setObject(self.searchTextField.text, forKey: "searchValue")
                 search.setObject(PFUser.currentUser()!, forKey: "user")
-                var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
+                var geoPoint = PFGeoPoint(latitude: contextManager.locationManager.location.coordinate.latitude, longitude: contextManager.locationManager.location.coordinate.longitude)
                 search.setObject(geoPoint, forKey: "location")
                 
                 var item : [String: AnyObject]? = fsDataSource.getSelectedPlace()
@@ -382,12 +267,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                         }
                     }
                 }
-                
                 search.saveInBackgroundWithBlock(nil)
             }
             self.searchTextField.resignFirstResponder()
             var destVC = segue.destinationViewController as! SearchWebViewController
             destVC.query = self.searchTextField.text
+            self.searchTextField.text = ""
         }
         else if(segue.identifier == "suggestedSearched"){
             var destVC = segue.destinationViewController as! SearchWebViewController
@@ -396,13 +281,38 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
         else if(segue.identifier == "feedToCreatePost"){
             let destVC = segue.destinationViewController as! CreatePostViewController
-            destVC.ppDataSource.placesList = self.likelihoods
         }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.performSegueWithIdentifier("searched", sender: self)
         return true
+    }
+    
+    func didUpdateContext(context: String, withItems items: [AnyObject]) {
+        if context == "places"{
+            self.contextDataSources = [ContextDataSource]()
+            for (index, item) in enumerate(items){
+                var place = item as! GMSPlace
+                var context = Context()
+                context.title = place.name
+                if index == 0{
+                    context.subtitle = "Because you're at"
+                }
+                else{
+                    context.subtitle = "Because you're near"
+                }
+                let cds = ContextDataSource(type: "googlePlacesId", id: place.placeID)
+                cds.context = context
+                cds.collectionView = self.collectionView
+                cds.viewController = self
+                self.contextDataSources.append(cds)
+            }
+            self.collectionView.reloadData()
+        }
+        if context == "times"{
+            
+        }
     }
 }
 

@@ -15,7 +15,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     
     var postURL : String?
     var image : UIImage?
-    let manager = CLLocationManager()
+    let manager = ContextManager.sharedInstance
     var ppDataSource = PlacePickerDataSource()
     var timeDataSource = TimePickerDataSource()
 
@@ -33,6 +33,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         
         self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: (NSKeyValueObservingOptions.New|NSKeyValueObservingOptions.Old), context: nil)
         self.mapView.delegate = self
+        
+        self.timeDataSource.timeList = manager.timesList
         
         self.placePicker.dataSource = ppDataSource
         self.placePicker.delegate = ppDataSource
@@ -72,8 +74,8 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
             region.center = self.mapView.userLocation.coordinate;
             
             var span = MKCoordinateSpan()
-            span.latitudeDelta  = 0.05 // Change these values to change the zoom
-            span.longitudeDelta = 0.05
+            span.latitudeDelta  = 0.01 // Change these values to change the zoom
+            span.longitudeDelta = 0.01
             region.span = span;
             
             self.mapView.setRegion(region, animated: true)

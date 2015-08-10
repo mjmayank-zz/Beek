@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:uiuc.gpx">
+   </FileRef>
+   <FileRef
       location = "group:Beek.xcodeproj">
    </FileRef>
    <FileRef

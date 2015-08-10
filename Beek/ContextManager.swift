@@ -10,17 +10,23 @@ import Foundation
 
 class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
     
-    static let sharedInstance = LocationManager()
+    static let sharedInstance = ContextManager()
+    var oldLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     var placesList = [AnyObject]()
     var timesList = [AnyObject]()
-    let manager = CLLocationManager()
+    let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient()
+    var delegate : ContextManagerDelegate?
     
     override init(){
         super.init()
         
-        manager.delegate = self
-        manager.startUpdatingLocation()
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     
     func locationKit(locationKit: LocationKit!, didUpdateLocation location: CLLocation!) {
@@ -35,7 +41,20 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var newLocation = locations.last as! CLLocation
         
+        if(newLocation.distanceFromLocation(oldLocation) > 100){
+            oldLocation = newLocation
+            queryObjects(newLocation)
+        }
+        
+        if let delegate = delegate{
+            delegate.locationManager(locationManager, didUpdateLocations: locations)
+        }
+    }
+    
+    func refresh(){
+        queryObjects(locationManager.location)
     }
     
     func queryObjects(location: CLLocation!){
@@ -63,10 +82,15 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
                 return
             }
             
+            self.placesList = [AnyObject]()
+            
             if let placeLicklihoodList = placeLikelihoodList {
                 let likelihoods = placeLicklihoodList.likelihoods as? [GMSPlaceLikelihood]
                 for likelihood in likelihoods!{
                     self.placesList.append(likelihood.place)
+                }
+                if let delegate = self.delegate{
+                    delegate.didUpdateContext("places", withItems: self.placesList)
                 }
             }
         })
@@ -95,43 +119,21 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
                         var new_query = PFQuery(className: "Posts")
                         new_query.whereKey("timeId", equalTo: obj.objectId!)
                         new_query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
-                            timesList = posts
+                            if let posts = posts{
+                                self.timesList = posts
+                                if let delegate = self.delegate{
+                                    delegate.didUpdateContext("times", withItems: self.timesList)
+                                }
+                            }
                         })
                     }
                 }
             }
         }
-        
-        //Old Parse query
-        //        var query = PFQuery(className: "Post")
-        var point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //        query.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
-        //
-        //        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
-        //            if(error != nil){
-        //                print(error)
-        //            }
-        //            else{
-        //                if(results != nil){
-        //                    self.searchResults = results as? [PFObject]
-        //                }
-        //            }
-        //            self.collectionView.reloadData()
-        //        }
-        
-        var searchesQuery = PFQuery(className: "Search")
-        searchesQuery.whereKey("location", nearGeoPoint: point, withinMiles:1.0)
-        searchesQuery.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
-            if(error != nil){
-                print(error)
-            }
-            else{
-                if(results != nil){
-                    self.searchesDataSource.searchResults = results as? [PFObject]
-                }
-            }
-            self.searchesCollectionView.reloadData()
-        }
     }
-    
+}
+
+protocol ContextManagerDelegate{
+    func didUpdateContext(context: String, withItems: [AnyObject])
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
 }
