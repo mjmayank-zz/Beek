@@ -26,6 +26,7 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
         
         var query = PFQuery(className: "Posts")
         query.whereKey(type, equalTo: id)
+        query.orderByDescending("clickCount")
         query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
             if let posts = posts{
                 for post in posts{
@@ -89,9 +90,12 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.selectedIndex = indexPath
         if let items = searchResults{
-            if items[indexPath.row].objectForKey("url") as? String != nil && items[indexPath.row].objectForKey("url") as? String != ""{
+            let item = items[indexPath.row]
+            item.incrementKey("clickCount")
+            item.saveInBackgroundWithBlock(nil)
+            if item.objectForKey("url") as? String != nil && item.objectForKey("url") as? String != ""{
                 var fullURL = ""
-                if let url = items[indexPath.row].objectForKey("url") as? String{
+                if let url = item.objectForKey("url") as? String{
                     fullURL = url
                 }
                 let endIndex = advance(fullURL.startIndex, 4)

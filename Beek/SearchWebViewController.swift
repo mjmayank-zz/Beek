@@ -107,4 +107,21 @@ class SearchWebViewController: UIViewController{
             destVC.image = screenShotMethod()
         }
     }
+    
+    @IBAction func backButtonPressed(sender: AnyObject) {
+        self.webView?.goBack()
+    }
+    
+    @IBAction func forwardButtonPressed(sender: AnyObject) {
+        self.webView?.goForward()
+    }
+    @IBAction func shareButtonPressed(sender: AnyObject) {
+        if let webView = self.webView{
+            if let url = webView.URL{
+                let objectsToShare = [url]
+                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                self.presentViewController(activityVC, animated: true, completion: nil)
+            }
+        }
+    }
 }

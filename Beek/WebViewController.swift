@@ -28,17 +28,9 @@ class WebViewController : UIViewController {
         }
         let endIndex = advance(fullURL.startIndex, 4)
         var start = fullURL.substringToIndex(endIndex)
-        if(start == "http"){
-            var url = NSURL(string: fullURL)
-            var requestObj = NSURLRequest(URL: url!)
-            self.webView!.loadRequest(requestObj)
-        }
-        else{
-            //how to launch an app
-            let myURL = NSURL(string: fullURL)
-            UIApplication.sharedApplication().openURL(myURL!)
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
+        var url = NSURL(string: fullURL)
+        var requestObj = NSURLRequest(URL: url!)
+        self.webView!.loadRequest(requestObj)
         
     }
 }

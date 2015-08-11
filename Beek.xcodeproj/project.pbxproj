@@ -178,6 +178,7 @@
 		8F10209A1B67CFAB005C6F0F /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Beek/Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		8F1020AC1B67D25F005C6F0F /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		8F1020B61B67D97F005C6F0F /* ContextManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextManager.swift; sourceTree = "<group>"; };
+		8F277DB01B7A74640070A80A /* SigmaNu.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SigmaNu.gpx; sourceTree = "<group>"; };
 		8F2951681B6A7EA500B3F26C /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		8F29516A1B6AB1CB00B3F26C /* PlacePickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePickerDataSource.swift; sourceTree = "<group>"; };
 		8F29516E1B6BCD6400B3F26C /* TimePickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerDataSource.swift; sourceTree = "<group>"; };
@@ -329,8 +330,9 @@
 		8F009FEA1B4EBDF6005AA0F1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8F80CC651B79261A009EE81B /* uiuc.gpx */,
 				8F2951681B6A7EA500B3F26C /* SwiftyJSON.swift */,
+				8F80CC651B79261A009EE81B /* uiuc.gpx */,
+				8F277DB01B7A74640070A80A /* SigmaNu.gpx */,
 				8FC0D5791B695CBF00D61136 /* fairfaxTowneCenter.gpx */,
 				8F79A40A1B61305700270879 /* teoco.gpx */,
 				8F7DCABF1B696F2200875D37 /* RobbieHouse.gpx */,

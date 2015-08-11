@@ -724,8 +724,29 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" red="0.29520813489999997" green="0.50489415930000003" blue="0.76609848479999998" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-g8-tWf">
-                                <rect key="frame" x="534" y="530" width="50" height="50"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAz-aw-8X5">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="&lt;" id="bEc-BI-3eZ">
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="XNr-hj-hmf" id="IoD-Sq-X0U"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="&gt;" id="eqW-Xr-XIs">
+                                        <connections>
+                                            <action selector="forwardButtonPressed:" destination="XNr-hj-hmf" id="v8f-sk-jpZ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Po0-WM-8Ml"/>
+                                    <barButtonItem systemItem="action" id="wD8-DO-bJs">
+                                        <connections>
+                                            <action selector="shareButtonPressed:" destination="XNr-hj-hmf" id="JBd-MA-pI6"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-g8-tWf">
+                                <rect key="frame" x="534" y="488" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="KoH-sP-6xn"/>
                                     <constraint firstAttribute="height" constant="50" id="vfx-SA-Db8"/>
@@ -741,13 +762,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="BAz-aw-8X5" secondAttribute="trailing" constant="-16" id="6lF-Ga-mOp"/>
                             <constraint firstItem="hkQ-C7-iXe" firstAttribute="top" secondItem="w3u-Tv-l2c" secondAttribute="bottom" id="6yI-uZ-vkb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w3u-Tv-l2c" secondAttribute="trailing" constant="-16" id="AEa-F1-4He"/>
                             <constraint firstItem="w3u-Tv-l2c" firstAttribute="leading" secondItem="d2z-No-K7t" secondAttribute="leadingMargin" constant="-16" id="Kwq-io-S2G"/>
                             <constraint firstItem="lBU-g8-tWf" firstAttribute="trailing" secondItem="d2z-No-K7t" secondAttribute="trailingMargin" id="T9g-kh-iwh"/>
+                            <constraint firstItem="hkQ-C7-iXe" firstAttribute="top" secondItem="BAz-aw-8X5" secondAttribute="bottom" id="TWZ-82-mft"/>
+                            <constraint firstItem="BAz-aw-8X5" firstAttribute="leading" secondItem="d2z-No-K7t" secondAttribute="leadingMargin" constant="-16" id="XbG-O8-WEj"/>
                             <constraint firstItem="hkQ-C7-iXe" firstAttribute="top" secondItem="lBU-g8-tWf" secondAttribute="bottom" constant="20" id="gAV-Dl-4dT"/>
                             <constraint firstItem="w3u-Tv-l2c" firstAttribute="top" secondItem="PFR-VP-5pq" secondAttribute="bottom" id="gCk-jh-eYV"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gAV-Dl-4dT"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="button" destination="lBU-g8-tWf" id="6uA-Ju-2dW"/>
@@ -1453,6 +1482,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="zax-bN-2bj"/>
         <segue reference="VXW-jI-lOn"/>
-        <segue reference="927-nd-DSG"/>
+        <segue reference="keC-Z6-ubE"/>
     </inferredMetricsTieBreakers>
 </document>

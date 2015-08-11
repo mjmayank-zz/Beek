@@ -251,23 +251,25 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
         
         else if(segue.identifier == "searched"){
             if(self.searchTextField.text != ""){
-                var search = PFObject(className: "Search")
-                search.setObject(self.searchTextField.text, forKey: "searchValue")
-                search.setObject(PFUser.currentUser()!, forKey: "user")
-                var geoPoint = PFGeoPoint(latitude: contextManager.locationManager.location.coordinate.latitude, longitude: contextManager.locationManager.location.coordinate.longitude)
-                search.setObject(geoPoint, forKey: "location")
-                
-                var item : [String: AnyObject]? = fsDataSource.getSelectedPlace()
-                if item != nil{
-                    if let venueInfo = item!["venue"] as? [String : AnyObject]{
-                        search.setObject(venueInfo["id"]!, forKey: "foursqure_id")
-                        search.setObject(venueInfo["name"] as! String, forKey: "venue_name")
-                        if let categoryArray = venueInfo["categories"] as? [JSONParameters]{
-                            search.setObject(categoryArray[0]["name"]!, forKey: "venue_category")
+                if let location = contextManager.locationManager.location{
+                    var search = PFObject(className: "Search")
+                    search.setObject(self.searchTextField.text, forKey: "searchValue")
+                    search.setObject(PFUser.currentUser()!, forKey: "user")
+                    var geoPoint = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    search.setObject(geoPoint, forKey: "location")
+                    
+                    var item : [String: AnyObject]? = fsDataSource.getSelectedPlace()
+                    if item != nil{
+                        if let venueInfo = item!["venue"] as? [String : AnyObject]{
+                            search.setObject(venueInfo["id"]!, forKey: "foursqure_id")
+                            search.setObject(venueInfo["name"] as! String, forKey: "venue_name")
+                            if let categoryArray = venueInfo["categories"] as? [JSONParameters]{
+                                search.setObject(categoryArray[0]["name"]!, forKey: "venue_category")
+                            }
                         }
                     }
+                    search.saveInBackgroundWithBlock(nil)
                 }
-                search.saveInBackgroundWithBlock(nil)
             }
             self.searchTextField.resignFirstResponder()
             var destVC = segue.destinationViewController as! SearchWebViewController
