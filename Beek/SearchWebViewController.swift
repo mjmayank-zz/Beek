@@ -12,7 +12,7 @@ import WebKit
 
 class SearchWebViewController: UIViewController{
     private var webView: WKWebView?
-    var query : String!
+    var url : String!
     //    @IBOutlet var webView: UIWebView!
     @IBOutlet var containerView: UIView!
     
@@ -26,11 +26,10 @@ class SearchWebViewController: UIViewController{
         self.webView = WKWebView()
         self.containerView.addSubview(self.webView!)
         
-        query = query.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        var fulladdress = "http://www.google.com/search?q=" + query
-        var url = NSURL(string: fulladdress)
+        var url = NSURL(string: self.url)
         var requestObj = NSURLRequest(URL: url!)
         self.webView!.loadRequest(requestObj)
+        self.webView?.scrollView.contentInset = UIEdgeInsetsMake(0,0,44,0)
         
 //        var leftConstraint = NSLayoutConstraint(item: self.webView!, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self.containerView, attribute: NSLayoutAttribute.Left, multiplier: CGFloat(1.0), constant: CGFloat(0))
 //        self.containerView.addConstraint(leftConstraint)
@@ -104,6 +103,7 @@ class SearchWebViewController: UIViewController{
             var destVC = segue.destinationViewController as! CreatePostViewController
             var url:NSURL = self.webView!.URL!
             destVC.postURL = url.absoluteString
+            destVC.postTitle = self.webView?.title
             destVC.image = screenShotMethod()
         }
     }

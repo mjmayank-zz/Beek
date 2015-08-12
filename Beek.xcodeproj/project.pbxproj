@@ -27,7 +27,6 @@
 		8F00A0361B4EE49C005AA0F1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0351B4EE49C005AA0F1 /* DetailViewController.swift */; };
 		8F00A03F1B4F56F6005AA0F1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A03E1B4F56F6005AA0F1 /* LoginViewController.swift */; };
 		8F00A0421B500A9A005AA0F1 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0411B500A9A005AA0F1 /* FeedbackViewController.swift */; };
-		8F00A0441B501433005AA0F1 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0431B501433005AA0F1 /* WebViewController.swift */; };
 		8F00A04D1B501849005AA0F1 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F00A0471B501849005AA0F1 /* ParseCrashReporting.framework */; };
 		8F00A0501B501849005AA0F1 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F00A04A1B501849005AA0F1 /* ParseUI.framework */; };
 		8F00A0561B501C7A005AA0F1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */; };
@@ -44,7 +43,6 @@
 		8F29516B1B6AB1CB00B3F26C /* PlacePickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29516A1B6AB1CB00B3F26C /* PlacePickerDataSource.swift */; };
 		8F29516F1B6BCD6400B3F26C /* TimePickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29516E1B6BCD6400B3F26C /* TimePickerDataSource.swift */; };
 		8F30C7D91B60244D009B7C5D /* Apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7D81B60244D009B7C5D /* Apps.plist */; };
-		8F30C7ED1B6038A6009B7C5D /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E61B6038A6009B7C5D /* addButton.png */; };
 		8F30C7EE1B6038A6009B7C5D /* balloon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E71B6038A6009B7C5D /* balloon.jpg */; };
 		8F30C7EF1B6038A6009B7C5D /* beek_circl.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E81B6038A6009B7C5D /* beek_circl.png */; };
 		8F30C7F01B6038A6009B7C5D /* logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F30C7E91B6038A6009B7C5D /* logo_white.png */; };
@@ -88,6 +86,7 @@
 		8FC0D57A1B695CBF00D61136 /* fairfaxTowneCenter.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8FC0D5791B695CBF00D61136 /* fairfaxTowneCenter.gpx */; };
 		8FC73F171B55517E008D3893 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC73F161B55517E008D3893 /* SettingsViewController.swift */; };
 		8FE3624F1B57F62A005302F7 /* QuadratTouch.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FE3624B1B57F5F8005302F7 /* QuadratTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8FEE5D1D1B7B923400B60703 /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FEE5D1C1B7B923400B60703 /* addButton.png */; };
 		C040C3E7254D3EC869635E44 /* libPods-Beek.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 002A5A47CB7BD54747A2F0D4 /* libPods-Beek.a */; };
 /* End PBXBuildFile section */
 
@@ -162,7 +161,6 @@
 		8F00A0351B4EE49C005AA0F1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8F00A03E1B4F56F6005AA0F1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8F00A0411B500A9A005AA0F1 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
-		8F00A0431B501433005AA0F1 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		8F00A0471B501849005AA0F1 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Frameworks/ParseCrashReporting.framework; sourceTree = "<group>"; };
 		8F00A0481B501849005AA0F1 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		8F00A0491B501849005AA0F1 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 		8F29516A1B6AB1CB00B3F26C /* PlacePickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePickerDataSource.swift; sourceTree = "<group>"; };
 		8F29516E1B6BCD6400B3F26C /* TimePickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerDataSource.swift; sourceTree = "<group>"; };
 		8F30C7D81B60244D009B7C5D /* Apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Apps.plist; sourceTree = "<group>"; };
-		8F30C7E61B6038A6009B7C5D /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addButton.png; path = Assets/addButton.png; sourceTree = "<group>"; };
 		8F30C7E71B6038A6009B7C5D /* balloon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = balloon.jpg; path = Assets/balloon.jpg; sourceTree = "<group>"; };
 		8F30C7E81B6038A6009B7C5D /* beek_circl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beek_circl.png; path = Assets/beek_circl.png; sourceTree = "<group>"; };
 		8F30C7E91B6038A6009B7C5D /* logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_white.png; path = Assets/logo_white.png; sourceTree = "<group>"; };
@@ -228,6 +225,7 @@
 		8FC0D5791B695CBF00D61136 /* fairfaxTowneCenter.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = fairfaxTowneCenter.gpx; path = ../../../Downloads/fairfaxTowneCenter.gpx; sourceTree = "<group>"; };
 		8FC73F161B55517E008D3893 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8FE362431B57F5F8005302F7 /* Quadrat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quadrat.xcodeproj; path = "../../beek_old/Beek/das-quadrat/Source/Quadrat.xcodeproj"; sourceTree = "<group>"; };
+		8FEE5D1C1B7B923400B60703 /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addButton.png; path = Assets/addButton.png; sourceTree = "<group>"; };
 		DFF11983F002CEE3AE7DD08A /* Pods-Beek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beek.release.xcconfig"; path = "Pods/Target Support Files/Pods-Beek/Pods-Beek.release.xcconfig"; sourceTree = "<group>"; };
 		F455F99DE27AEB9F03BD008E /* Pods-Beek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beek.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beek/Pods-Beek.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -310,7 +308,6 @@
 				8F00A05B1B504F5D005AA0F1 /* MyPostsViewController.swift */,
 				8F00A0411B500A9A005AA0F1 /* FeedbackViewController.swift */,
 				8F009FEE1B4EBDF6005AA0F1 /* ViewController.swift */,
-				8F00A0431B501433005AA0F1 /* WebViewController.swift */,
 				8F00A0551B501C7A005AA0F1 /* ProfileViewController.swift */,
 				8F3BF6BE1B51650B00F56232 /* PostModel.swift */,
 				8F00A0351B4EE49C005AA0F1 /* DetailViewController.swift */,
@@ -408,6 +405,7 @@
 		8FE3622E1B57F298005302F7 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8FEE5D1C1B7B923400B60703 /* addButton.png */,
 				8F38D6BA1B7526FA00429151 /* ic_account_circle_48pt_2x.png */,
 				8F38D6BB1B7526FA00429151 /* ic_account_circle_48pt_3x.png */,
 				8F38D6BC1B7526FA00429151 /* ic_account_circle_48pt.png */,
@@ -420,7 +418,6 @@
 				8F38D6AB1B75255C00429151 /* ic_notifications_48pt_2x.png */,
 				8F38D6AC1B75255C00429151 /* ic_notifications_48pt_3x.png */,
 				8F38D6AD1B75255C00429151 /* ic_notifications_48pt.png */,
-				8F30C7E61B6038A6009B7C5D /* addButton.png */,
 				8F30C7E71B6038A6009B7C5D /* balloon.jpg */,
 				8F30C7E81B6038A6009B7C5D /* beek_circl.png */,
 				8F30C7E91B6038A6009B7C5D /* logo_white.png */,
@@ -607,9 +604,9 @@
 				8F79A4121B617EB300270879 /* foursquare.png in Resources */,
 				8F38D6B81B75264D00429151 /* ic_settings_48pt_3x.png in Resources */,
 				8F30C7D91B60244D009B7C5D /* Apps.plist in Resources */,
-				8F30C7ED1B6038A6009B7C5D /* addButton.png in Resources */,
 				8F38D6B11B75255C00429151 /* ic_notifications_48pt_2x.png in Resources */,
 				8F79A40B1B61305700270879 /* teoco.gpx in Resources */,
+				8FEE5D1D1B7B923400B60703 /* addButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,7 +668,6 @@
 				8FB005B61B543CBA00839705 /* SearchWebViewController.swift in Sources */,
 				8F29516F1B6BCD6400B3F26C /* TimePickerDataSource.swift in Sources */,
 				8FC73F171B55517E008D3893 /* SettingsViewController.swift in Sources */,
-				8F00A0441B501433005AA0F1 /* WebViewController.swift in Sources */,
 				8FB005AE1B53FC9300839705 /* DBManager.swift in Sources */,
 				8F00A03F1B4F56F6005AA0F1 /* LoginViewController.swift in Sources */,
 				8F5DD76B1B5D4DE2005E2548 /* SearchesDataSource.swift in Sources */,

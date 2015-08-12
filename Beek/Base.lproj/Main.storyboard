@@ -127,9 +127,6 @@
                                         <exclude reference="7lJ-uz-h0N"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <segue destination="oE8-Tp-rpF" kind="show" id="FF0-bO-oTT"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUb-yg-hlC" userLabel="Settings">
                                 <rect key="frame" x="206" y="382" width="48" height="48"/>
@@ -700,13 +697,13 @@
                         <outlet property="searchTextField" destination="jj6-pI-Dtb" id="Oz3-VQ-Oj0"/>
                         <outlet property="searchesCollectionView" destination="RwA-fR-yi2" id="R83-C4-Kva"/>
                         <segue destination="b3m-16-Bay" kind="show" identifier="toDetail" id="cfO-Kd-faz"/>
-                        <segue destination="byg-vW-5kc" kind="show" identifier="toWebView" id="dBK-ad-Cyy"/>
                         <segue destination="XNr-hj-hmf" kind="show" identifier="searched" id="VXW-jI-lOn"/>
+                        <segue destination="XNr-hj-hmf" kind="show" identifier="toWebView" id="8dg-6s-b9v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57" y="432"/>
+            <point key="canvasLocation" x="57" y="428"/>
         </scene>
         <!--Search Web View Controller-->
         <scene sceneID="EEp-do-v7y">
@@ -745,7 +742,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-g8-tWf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-g8-tWf">
                                 <rect key="frame" x="534" y="488" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="KoH-sP-6xn"/>
@@ -766,6 +763,7 @@
                             <constraint firstItem="hkQ-C7-iXe" firstAttribute="top" secondItem="w3u-Tv-l2c" secondAttribute="bottom" id="6yI-uZ-vkb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w3u-Tv-l2c" secondAttribute="trailing" constant="-16" id="AEa-F1-4He"/>
                             <constraint firstItem="w3u-Tv-l2c" firstAttribute="leading" secondItem="d2z-No-K7t" secondAttribute="leadingMargin" constant="-16" id="Kwq-io-S2G"/>
+                            <constraint firstItem="BAz-aw-8X5" firstAttribute="top" secondItem="lBU-g8-tWf" secondAttribute="bottom" constant="18" id="Pib-Ci-5I4"/>
                             <constraint firstItem="lBU-g8-tWf" firstAttribute="trailing" secondItem="d2z-No-K7t" secondAttribute="trailingMargin" id="T9g-kh-iwh"/>
                             <constraint firstItem="hkQ-C7-iXe" firstAttribute="top" secondItem="BAz-aw-8X5" secondAttribute="bottom" id="TWZ-82-mft"/>
                             <constraint firstItem="BAz-aw-8X5" firstAttribute="leading" secondItem="d2z-No-K7t" secondAttribute="leadingMargin" constant="-16" id="XbG-O8-WEj"/>
@@ -1468,7 +1466,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="addButton.png" width="500" height="500"/>
+        <image name="addButton.png" width="150" height="150"/>
         <image name="balloon.jpg" width="1024" height="683"/>
         <image name="beek_circl.png" width="180" height="180"/>
         <image name="ic_account_circle_48pt.png" width="48" height="48"/>
@@ -1481,7 +1479,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="zax-bN-2bj"/>
-        <segue reference="VXW-jI-lOn"/>
+        <segue reference="8dg-6s-b9v"/>
         <segue reference="keC-Z6-ubE"/>
     </inferredMetricsTieBreakers>
 </document>

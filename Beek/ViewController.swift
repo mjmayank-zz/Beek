@@ -244,9 +244,11 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
             destVC.detailObject =   PostModel(object:cds.searchResults![cds.selectedIndex!.row])
         }
         else if(segue.identifier == "toWebView"){
-            var destVC = segue.destinationViewController as! WebViewController
+            var destVC = segue.destinationViewController as! SearchWebViewController
             var cds = sender as! ContextDataSource
-            destVC.detailObject = PostModel(object: cds.searchResults![cds.selectedIndex!.row])
+            if let url: String = cds.searchResults![cds.selectedIndex!.row].objectForKey("url") as? String{
+                destVC.url = url
+            }
         }
         
         else if(segue.identifier == "searched"){
@@ -273,13 +275,21 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
             }
             self.searchTextField.resignFirstResponder()
             var destVC = segue.destinationViewController as! SearchWebViewController
-            destVC.query = self.searchTextField.text
+            var query = self.searchTextField.text
+            query = query.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            query = query.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            var fulladdress = "http://www.google.com/search?q=" + query
+            destVC.url = fulladdress
             self.searchTextField.text = ""
         }
         else if(segue.identifier == "suggestedSearched"){
             var destVC = segue.destinationViewController as! SearchWebViewController
             let cell = sender as! searchesCell
-            destVC.query = cell.searchLabel.text
+            var query = cell.searchLabel.text
+            query = query!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            query = query!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            var fulladdress = "http://www.google.com/search?q=" + query!
+            destVC.url = fulladdress
         }
         else if(segue.identifier == "feedToCreatePost"){
             let destVC = segue.destinationViewController as! CreatePostViewController

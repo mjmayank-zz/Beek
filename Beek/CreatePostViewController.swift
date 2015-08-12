@@ -14,6 +14,7 @@ import MapKit
 class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewDelegate{
     
     var postURL : String?
+    var postTitle : String?
     var image : UIImage?
     let manager = ContextManager.sharedInstance
     var ppDataSource = PlacePickerDataSource()
@@ -46,6 +47,9 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         
         if let url = postURL{
             self.urlTextField.text = url
+        }
+        if let postTitle = postTitle{
+            self.titleTextField.text = postTitle
         }
         
         var query = PFQuery(className: "Time")
