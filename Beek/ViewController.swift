@@ -276,8 +276,8 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
             self.searchTextField.resignFirstResponder()
             var destVC = segue.destinationViewController as! SearchWebViewController
             var query = self.searchTextField.text
-            query = query.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             query = query.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            query = query.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             var fulladdress = "http://www.google.com/search?q=" + query
             destVC.url = fulladdress
             self.searchTextField.text = ""
@@ -286,8 +286,8 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
             var destVC = segue.destinationViewController as! SearchWebViewController
             let cell = sender as! searchesCell
             var query = cell.searchLabel.text
-            query = query!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             query = query!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            query = query!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             var fulladdress = "http://www.google.com/search?q=" + query!
             destVC.url = fulladdress
         }

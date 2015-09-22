@@ -71,6 +71,7 @@
 		8F4794441B6672E900A56906 /* pocket.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F4794421B6672E900A56906 /* pocket.png */; };
 		8F5DD7681B5D4285005E2548 /* AppLauncherDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DD7671B5D4285005E2548 /* AppLauncherDataSource.swift */; };
 		8F5DD76B1B5D4DE2005E2548 /* SearchesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5DD76A1B5D4DE2005E2548 /* SearchesDataSource.swift */; };
+		8F5ED7551B96487A00F3E883 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5ED7541B96487A00F3E883 /* SignupViewController.swift */; };
 		8F79A40B1B61305700270879 /* teoco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A40A1B61305700270879 /* teoco.gpx */; };
 		8F79A40D1B613F7D00270879 /* spotify.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A40C1B613F7D00270879 /* spotify.png */; };
 		8F79A40F1B61400B00270879 /* googlemaps.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F79A40E1B61400B00270879 /* googlemaps.png */; };
@@ -209,6 +210,7 @@
 		8F4794421B6672E900A56906 /* pocket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pocket.png; path = Assets/icons/pocket.png; sourceTree = "<group>"; };
 		8F5DD7671B5D4285005E2548 /* AppLauncherDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLauncherDataSource.swift; sourceTree = "<group>"; };
 		8F5DD76A1B5D4DE2005E2548 /* SearchesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchesDataSource.swift; sourceTree = "<group>"; };
+		8F5ED7541B96487A00F3E883 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		8F79A40A1B61305700270879 /* teoco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = teoco.gpx; sourceTree = "<group>"; };
 		8F79A40C1B613F7D00270879 /* spotify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spotify.png; path = Assets/icons/spotify.png; sourceTree = "<group>"; };
 		8F79A40E1B61400B00270879 /* googlemaps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = googlemaps.png; path = Assets/icons/googlemaps.png; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				8F3BF6BE1B51650B00F56232 /* PostModel.swift */,
 				8F00A0351B4EE49C005AA0F1 /* DetailViewController.swift */,
 				8F00A03E1B4F56F6005AA0F1 /* LoginViewController.swift */,
+				8F5ED7541B96487A00F3E883 /* SignupViewController.swift */,
 				8FC73F161B55517E008D3893 /* SettingsViewController.swift */,
 				8F00A0311B4EE0DB005AA0F1 /* CreatePostViewController.swift */,
 				8FB005AD1B53FC9300839705 /* DBManager.swift */,
@@ -659,6 +662,7 @@
 			files = (
 				8F00A0321B4EE0DB005AA0F1 /* CreatePostViewController.swift in Sources */,
 				8F00A0421B500A9A005AA0F1 /* FeedbackViewController.swift in Sources */,
+				8F5ED7551B96487A00F3E883 /* SignupViewController.swift in Sources */,
 				8F00A05C1B504F5D005AA0F1 /* MyPostsViewController.swift in Sources */,
 				8F2951691B6A7EA500B3F26C /* SwiftyJSON.swift in Sources */,
 				8F00A0661B505B51005AA0F1 /* FoursquareDataSource.swift in Sources */,

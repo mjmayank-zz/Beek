@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1FC2A5F490A6CF4ECA2BFCF7CA817CAF754B3D2F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C333CCA42B76DAB308C436958D3D72C5B6ACE147" : 0,
+    "8BA7809BEF442330AAFB280284FB26E34BF5679A" : 0,
+    "1FC2A5F490A6CF4ECA2BFCF7CA817CAF754B3D2F" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "76D699DA-30F4-483E-A91E-418514EC688F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C333CCA42B76DAB308C436958D3D72C5B6ACE147" : "beek_old\/Beek\/das-quadrat",
+    "8BA7809BEF442330AAFB280284FB26E34BF5679A" : "beek_old\/Beek",
+    "1FC2A5F490A6CF4ECA2BFCF7CA817CAF754B3D2F" : "Beek"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Beek",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Beek.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mjmayank\/Beek.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1FC2A5F490A6CF4ECA2BFCF7CA817CAF754B3D2F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mjmayank\/Beek.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8BA7809BEF442330AAFB280284FB26E34BF5679A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Constantine-Fry\/das-quadrat.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C333CCA42B76DAB308C436958D3D72C5B6ACE147"
+    }
+  ]
+}
