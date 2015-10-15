@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import Parse
 
 class PostModel{
     var title : String!
@@ -35,7 +36,7 @@ class PostModel{
         self.body = object.objectForKey("body") as? String
         self.url = object.objectForKey("url") as? String
         self.authorID = object.objectForKey("authorID") as? String
-        var geoPoint = object.objectForKey("location") as? PFGeoPoint
+        let geoPoint = object.objectForKey("location") as? PFGeoPoint
         if let geoPoint = geoPoint{
             self.location = CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
         }
@@ -72,8 +73,8 @@ class PostModel{
         
         if let objImage = image{
             var jpegImage = UIImageJPEGRepresentation(objImage, 1.0)
-            let file = PFFile(name: "image.jpg", data: jpegImage)
-            parseObj.setObject(file, forKey: "image")
+            let file = PFFile(name: "image.jpg", data: jpegImage!)
+            parseObj.setObject(file!, forKey: "image")
         }
     }
     

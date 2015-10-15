@@ -24,19 +24,16 @@ UIKIT_EXTERN NSString *const LKUserValueDateInstalled;
 @protocol LocationKitDelegate;
 
 
-
 @interface LocationKit : NSObject
 
 @property(nonatomic, readonly) BOOL isRunning;
 
-
 @property(nonatomic, copy) void (^getCurrentLocationCallback)(CLLocation *, NSError *);
 
-@property(nonatomic) BOOL isCompassOff;
 
 + (LocationKit *)sharedInstance;
 
-- (instancetype) init __attribute__((unavailable("init not available")));
+- (instancetype)init __attribute__((unavailable("init not available")));
 
 
 - (void)startWithApiToken:(NSString *)token andDelegate:(id <LocationKitDelegate>)delegate;
@@ -53,6 +50,16 @@ UIKIT_EXTERN NSString *const LKUserValueDateInstalled;
 
 - (void)searchForPlacesWithRequest:(LKSearchRequest *)request completionHandler:(void (^)(NSArray *places, NSError *error))handler;
 
+- (void)getPeopleAtCurrentVenue:(void (^)(NSArray *people, LKVenue *venue, NSError *error))handler;
+
+- (void)getPeopleNearby:(void (^)(NSArray *people, NSError *error))handler;
+
+- (void)getPriorVisits:(void (^)(NSArray *visits, NSError *error))handler;
+
+- (void)getHome:(void (^)(LKAddress *, NSError *))handler;
+
+- (void)getWork:(void (^)(LKAddress *, NSError *))handler;
+
 /*
  *  updateUserValues:
  *
@@ -67,7 +74,6 @@ UIKIT_EXTERN NSString *const LKUserValueDateInstalled;
 
 - (NSError *)resume;
 
-- (void)turnCompassOff:(BOOL)b;
 @end
 
 

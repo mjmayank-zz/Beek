@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class FeedbackViewController : UIViewController, UITextViewDelegate{
     
@@ -30,7 +31,7 @@ class FeedbackViewController : UIViewController, UITextViewDelegate{
     }
     
     @IBAction func sendButtonPressed(sender: AnyObject) {
-        var post = PFObject(className: "Feedback")
+        let post = PFObject(className: "Feedback")
         post.setObject(self.textView.text, forKey: "body")
         post.setObject(PFUser.currentUser()!, forKey: "author")
         post.saveInBackgroundWithBlock { (bool:Bool, error:NSError?) -> Void in

@@ -6,4 +6,5 @@
  * https://developers.google.com/maps/documentation/ios/start#get-key
  */
 
-static NSString *const kAPIKey = @"AIzaSyAr8JVdMDs82_bUCQtPrkNyq7XuikcmkhQ";
+#error Register for API Key and insert here. Then delete this line.
+static NSString *const kAPIKey = @"";

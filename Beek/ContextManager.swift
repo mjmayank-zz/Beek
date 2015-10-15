@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Parse
+import GoogleMaps
 
 class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
     
@@ -15,7 +17,7 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
     var placesList = [AnyObject]()
     var timesList = [AnyObject]()
     let locationManager = CLLocationManager()
-    let placesClient = GMSPlacesClient()
+    var placesClient : GMSPlacesClient?
     var delegate : ContextManagerDelegate?
     
     override init(){
@@ -25,23 +27,25 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
         
+        placesClient = GMSPlacesClient()
+        
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
     
     func locationKit(locationKit: LocationKit!, didUpdateLocation location: CLLocation!) {
-        println("Delegate got a location: (\(location.coordinate.latitude), \(location.coordinate.longitude))")
+        print("Delegate got a location: (\(location.coordinate.latitude), \(location.coordinate.longitude))")
         locationKit.getCurrentPlaceWithHandler { (place:LKPlace!, error:NSError!) -> Void in
             if let place = place {
-                print("The user is in (\(place.address.locality))")
+                print("The user is in (\(place.address.locality))", terminator: "")
             } else {
-                print("Error fetching place: %@", error)
+                print("Error fetching place: %@", error, terminator: "")
             }
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var newLocation = locations.last as! CLLocation
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let newLocation = locations.last!
         
         if(newLocation.distanceFromLocation(oldLocation) > 100){
             oldLocation = newLocation
@@ -71,14 +75,14 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?\(string)")
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
-            let json = JSON(data: data)
+            let json = JSON(data: data!)
         }
         
         task.resume()
         
-        placesClient.currentPlaceWithCallback({ (placeLikelihoodList: GMSPlaceLikelihoodList?, error: NSError?) -> Void in
+        placesClient?.currentPlaceWithCallback({ (placeLikelihoodList: GMSPlaceLikelihoodList?, error: NSError?) -> Void in
             if let error = error {
-                println("Pick Place error: \(error.localizedDescription)")
+                print("Pick Place error: \(error.localizedDescription)")
                 return
             }
             
@@ -98,7 +102,7 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
         //date view controller
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitSecond, fromDate: date)
+        let components = calendar.components([.Hour, .Minute, .Second], fromDate: date)
         let hour = components.hour
         let minutes = components.minute
         let seconds = components.second
@@ -108,17 +112,17 @@ class ContextManager: NSObject, LocationKitDelegate, CLLocationManagerDelegate {
         query.whereKey("start_time", lessThan: current_time)
         query.whereKey("end_time", greaterThan: current_time)
         
-        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
             if(error != nil){
-                print(error)
+                print(error, terminator: "")
             }
             else{
                 if let results = results{
                     for result in results{
-                        var obj = result as! PFObject
+                        var obj = result
                         var new_query = PFQuery(className: "Posts")
                         new_query.whereKey("timeId", equalTo: obj.objectId!)
-                        new_query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
+                        new_query.findObjectsInBackgroundWithBlock({ (posts:[PFObject]?, error:NSError?) -> Void in
                             if let posts = posts{
                                 self.timesList = posts
                                 if let delegate = self.delegate{

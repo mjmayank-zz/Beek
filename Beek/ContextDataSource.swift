@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegate{
     
@@ -24,13 +25,13 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
         
         cache.countLimit = 50
         
-        var query = PFQuery(className: "Posts")
+        let query = PFQuery(className: "Posts")
         query.whereKey(type, equalTo: id)
         query.orderByDescending("clickCount")
-        query.findObjectsInBackgroundWithBlock({ (posts:[AnyObject]?, error:NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock({ (posts:[PFObject]?, error:NSError?) -> Void in
             if let posts = posts{
                 for post in posts{
-                    self.searchResults?.append(post as! PFObject)
+                    self.searchResults?.append(post)
                 }
                 if let collectionView = self.collectionView{
                     collectionView.reloadData()
@@ -73,8 +74,8 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
                                 
                             }
                             else{
-                                var file = data
-                                var bgImage = UIImage(data: file!)
+                                let file = data
+                                let bgImage = UIImage(data: file!)
                                 self.cache.setObject(bgImage!, forKey: itemID!)
                                 cell.backgroundImage.image = bgImage
                             }
@@ -98,8 +99,8 @@ class ContextDataSource : NSObject, UICollectionViewDataSource, UICollectionView
                 if let url = item.objectForKey("url") as? String{
                     fullURL = url
                 }
-                let endIndex = advance(fullURL.startIndex, 4)
-                var start = fullURL.substringToIndex(endIndex)
+                let endIndex = fullURL.startIndex.advancedBy(4)
+                let start = fullURL.substringToIndex(endIndex)
                 if(start == "http"){
                     if let vc = self.viewController{
                         vc.performSegueWithIdentifier("toWebView", sender: self)

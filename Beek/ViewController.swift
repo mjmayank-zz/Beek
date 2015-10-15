@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Foundation
 import QuadratTouch
+import Parse
 
 class ViewController: UIViewController, ContextManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
 
@@ -31,6 +32,8 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let placeClient = GMSPlacesClient()
         
         appsDataSource = AppLauncherDataSource()
         
@@ -66,19 +69,13 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
     }
     
     deinit{
-        println("ViewController deinitializing")
+        print("ViewController deinitializing")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if let location = contextManager.locationManager.location{
-            if let oldLocation = self.oldLocation{
-                if(location.distanceFromLocation(oldLocation) > 100){
-                    self.oldLocation = location
-                    self.queryObjects(location)
-                }
-            }
-            else{
+            if(location.distanceFromLocation(self.oldLocation) > 100){
                 self.oldLocation = location
                 self.queryObjects(location)
             }
@@ -108,17 +105,17 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
     }
     
     func queryObjects(location: CLLocation!){
-        var point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let point = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         
-        var searchesQuery = PFQuery(className: "Search")
+        let searchesQuery = PFQuery(className: "Search")
         searchesQuery.whereKey("location", nearGeoPoint: point, withinMiles:0.5)
-        searchesQuery.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
+        searchesQuery.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
             if(error != nil){
-                print(error)
+                print(error, terminator: "")
             }
             else{
                 if(results != nil){
-                    self.searchesDataSource.searchResults = results as? [PFObject]
+                    self.searchesDataSource.searchResults = results
                 }
             }
             self.searchesCollectionView.reloadData()
@@ -128,7 +125,7 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
     func collectionView(collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("contextCardCell", forIndexPath: indexPath) as! contextCardCell
-            var ds = contextDataSources[indexPath.row]
+            let ds = contextDataSources[indexPath.row]
             cell.collectionView.dataSource = ds
             cell.collectionView.delegate = ds
             cell.collectionView.scrollsToTop = false
@@ -237,7 +234,7 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println(segue.identifier)
+        print(segue.identifier)
         if segue.identifier == "toDetail"{
             var destVC = segue.destinationViewController as! DetailViewController
             var cds = sender as! ContextDataSource
@@ -254,10 +251,10 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
         else if(segue.identifier == "searched"){
             if(self.searchTextField.text != ""){
                 if let location = contextManager.locationManager.location{
-                    var search = PFObject(className: "Search")
-                    search.setObject(self.searchTextField.text, forKey: "searchValue")
+                    let search = PFObject(className: "Search")
+                    search.setObject(self.searchTextField.text!, forKey: "searchValue")
                     search.setObject(PFUser.currentUser()!, forKey: "user")
-                    var geoPoint = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    let geoPoint = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                     search.setObject(geoPoint, forKey: "location")
                     
                     var item : [String: AnyObject]? = fsDataSource.getSelectedPlace()
@@ -274,21 +271,21 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
                 }
             }
             self.searchTextField.resignFirstResponder()
-            var destVC = segue.destinationViewController as! SearchWebViewController
-            var query = self.searchTextField.text
-            query = query.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            let destVC = segue.destinationViewController as! SearchWebViewController
+            var query = self.searchTextField.text!
+            query = query.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
             query = query.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            var fulladdress = "http://www.google.com/search?q=" + query
+            let fulladdress = "http://www.google.com/search?q=" + query
             destVC.url = fulladdress
             self.searchTextField.text = ""
         }
         else if(segue.identifier == "suggestedSearched"){
-            var destVC = segue.destinationViewController as! SearchWebViewController
+            let destVC = segue.destinationViewController as! SearchWebViewController
             let cell = sender as! searchesCell
             var query = cell.searchLabel.text
             query = query!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
             query = query!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-            var fulladdress = "http://www.google.com/search?q=" + query!
+            let fulladdress = "http://www.google.com/search?q=" + query!
             destVC.url = fulladdress
         }
         else if(segue.identifier == "feedToCreatePost"){
@@ -304,9 +301,9 @@ class ViewController: UIViewController, ContextManagerDelegate, UICollectionView
     func didUpdateContext(context: String, withItems items: [AnyObject]) {
         if context == "places"{
             self.contextDataSources = [ContextDataSource]()
-            for (index, item) in enumerate(items){
-                var place = item as! GMSPlace
-                var context = Context()
+            for (index, item) in items.enumerate(){
+                let place = item as! GMSPlace
+                let context = Context()
                 context.title = place.name
                 if index == 0{
                     context.subtitle = "Because you're at"
@@ -358,7 +355,7 @@ extension String {
     ///
     /// http://www.ietf.org/rfc/rfc3986.txt
     ///
-    /// :returns: Return precent escaped string.
+    /// - returns: Return precent escaped string.
     
     func stringByAddingPercentEncodingForURLQueryValue() -> String? {
         let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()
@@ -377,16 +374,16 @@ extension Dictionary {
     ///
     /// http://www.ietf.org/rfc/rfc3986.txt
     ///
-    /// :returns: String representation in the form of key1=value1&key2=value2 where the keys and values are percent escaped
+    /// - returns: String representation in the form of key1=value1&key2=value2 where the keys and values are percent escaped
     
     func stringFromHttpParameters() -> String {
-        let parameterArray = map(self) { (key, value) -> String in
+        let parameterArray = self.map { (key, value) -> String in
             let percentEscapedKey = (key as? String)!.stringByAddingPercentEncodingForURLQueryValue()!
             let percentEscapedValue = (value as? String)!.stringByAddingPercentEncodingForURLQueryValue()!
             return "\(percentEscapedKey)=\(percentEscapedValue)"
         }
         
-        return join("&", parameterArray)
+        return parameterArray.joinWithSeparator("&")
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Parse
 
 class UserModel{
     
@@ -19,7 +20,7 @@ class UserModel{
     }
     
     class func currentUser() -> UserModel{
-        var user = UserModel(user: PFUser.currentUser()!)
+        let user = UserModel(user: PFUser.currentUser()!)
         return user
     }
     

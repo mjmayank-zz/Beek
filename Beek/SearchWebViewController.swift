@@ -26,8 +26,8 @@ class SearchWebViewController: UIViewController{
         self.webView = WKWebView()
         self.containerView.addSubview(self.webView!)
         
-        var url = NSURL(string: self.url)
-        var requestObj = NSURLRequest(URL: url!)
+        let url = NSURL(string: self.url)
+        let requestObj = NSURLRequest(URL: url!)
         self.webView!.loadRequest(requestObj)
         self.webView?.scrollView.contentInset = UIEdgeInsetsMake(0,0,44,0)
         
@@ -90,18 +90,18 @@ class SearchWebViewController: UIViewController{
         
         let rect: CGRect = CGRectMake(posX * image.scale, posY * image.scale, width * image.scale, height * image.scale)
         // Create bitmap image from context using the rect
-        let imageRef: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, rect)
+        let imageRef: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, rect)!
         // Create a new image based on the imageRef and rotate back to the original orientation
-        let newimage: UIImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)!
+        let newimage: UIImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
         
         return newimage
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println(segue.identifier)
+        print(segue.identifier)
         if segue.identifier == "createPost"{
-            var destVC = segue.destinationViewController as! CreatePostViewController
-            var url:NSURL = self.webView!.URL!
+            let destVC = segue.destinationViewController as! CreatePostViewController
+            let url:NSURL = self.webView!.URL!
             destVC.postURL = url.absoluteString
             destVC.postTitle = self.webView?.title
             destVC.image = screenShotMethod()

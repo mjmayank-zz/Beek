@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class MyPostsViewController:UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, myPostCellDelegate {
     @IBOutlet var collectionView: UICollectionView!
@@ -24,16 +25,16 @@ class MyPostsViewController:UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func queryPosts(){
-        var query = PFQuery(className: "Post")
+        let query = PFQuery(className: "Post")
         query.whereKey("author", equalTo: PFUser.currentUser()!)
         
-        query.findObjectsInBackgroundWithBlock { (results:[AnyObject]?, error:NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
             if(error != nil){
-                print(error)
+                print(error, terminator: "")
             }
             else{
                 if(results != nil){
-                    self.searchResults = results as? [PFObject]
+                    self.searchResults = results
                 }
             }
             self.collectionView.reloadData()
@@ -48,7 +49,7 @@ class MyPostsViewController:UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("myPostCell", forIndexPath: indexPath) as! myPostCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("myPostCell", forIndexPath: indexPath) as! myPostCell
         
         if let items = searchResults{
             cell.titleLabel.text = items[indexPath.row].objectForKey("title") as? String
@@ -61,9 +62,9 @@ class MyPostsViewController:UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func deleteObject(object: PFObject){
-        var alert = UIAlertController(title: "Alert", message: "Are you sure you want to delete this?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Alert", message: "Are you sure you want to delete this?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction!) -> Void in
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (alert:UIAlertAction) -> Void in
                 object.deleteInBackgroundWithBlock(nil)
             self.queryPosts()
         }))

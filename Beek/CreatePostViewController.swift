@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import Parse
 
 
 class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewDelegate{
@@ -32,7 +33,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: (NSKeyValueObservingOptions.New|NSKeyValueObservingOptions.Old), context: nil)
+        self.mapView.userLocation.addObserver(self, forKeyPath: "location", options: ([NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]), context: nil)
         self.mapView.delegate = self
         
         self.timeDataSource.timeList = manager.timesList
@@ -52,27 +53,27 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
             self.titleTextField.text = postTitle
         }
         
-        var query = PFQuery(className: "Time")
-        query.findObjectsInBackgroundWithBlock { (response:[AnyObject]?, error:NSError?) -> Void in
-            if(error != nil){
-                println(error)
+        let query = PFQuery(className: "Time")
+        query.findObjectsInBackgroundWithBlock { (response:[PFObject]?, error:NSError?) -> Void in
+            if let error = error{
+                print(error)
             }
             else{
-                self.timeDataSource.timeList = response as? [PFObject]
+                self.timeDataSource.timeList = response
                 self.timePicker.reloadData()
             }
         }
         
-        var leftConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: CGFloat(1.0), constant: CGFloat(0))
+        let leftConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: CGFloat(1.0), constant: CGFloat(0))
         self.view.addConstraint(leftConstraint)
-        var rightConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Right, multiplier: CGFloat(1.0), constant: CGFloat(0))
+        let rightConstraint = NSLayoutConstraint(item: self.containerView, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Right, multiplier: CGFloat(1.0), constant: CGFloat(0))
         self.view.addConstraint(rightConstraint)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if self.mapView.showsUserLocation{
             var region = MKCoordinateRegion()
             region.center = self.mapView.userLocation.coordinate;
@@ -84,7 +85,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
             
             self.mapView.setRegion(region, animated: true)
             
-            var annotation = MyAnnotation(coordinate: self.mapView.userLocation.coordinate)
+            let annotation = MyAnnotation(coordinate: self.mapView.userLocation.coordinate)
 //            annotation.coordinate = self.mapView.userLocation.coordinate
             annotation.title = "Title" //You can set the subtitle too
             self.mapView.addAnnotation(annotation)
@@ -95,7 +96,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     
     func keyboardWillShow(notification: NSNotification){
         var info : NSDictionary = notification.userInfo!
-        var kbRect = info.objectForKey(UIKeyboardFrameBeginUserInfoKey)?.CGRectValue()
+        var kbRect = info.objectForKey(UIKeyboardFrameBeginUserInfoKey)?.CGRectValue
         
         kbRect = self.view.convertRect(kbRect!, fromView: nil)
         
@@ -111,7 +112,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     }
     
     func keyboardWillHide(notification: NSNotification){
-        var contentInsets = UIEdgeInsetsZero
+        let contentInsets = UIEdgeInsetsZero
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
     }
@@ -125,17 +126,15 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
-        var url = urlTextField.text
+        var url = urlTextField.text!
         var candidateURL = NSURL(string: url)
         if candidateURL != nil && url != ""{
-            if(candidateURL!.scheme == nil) {
-                url = "http://" + url
-                candidateURL = NSURL(string: url)
-            }
+            url = "http://" + url
+            candidateURL = NSURL(string: url)
         }
-        var body = bodyTextField.text
-        var title = titleTextField.text
-        let annotation : MKAnnotation = self.mapView.annotations[0] as! MKAnnotation
+        var body = bodyTextField.text!
+        var title = titleTextField.text!
+        let annotation : MKAnnotation = self.mapView.annotations[0] 
         var location = annotation.coordinate
         var object = PostModel(title: title, body: body, url: url, authorID: PFUser.currentUser()!.objectId!, location: location)
         if let place = self.ppDataSource.selectedPlace{
@@ -158,7 +157,7 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         return false
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         if(!annotation.isMemberOfClass(MyAnnotation)){
             return nil
         }
@@ -176,13 +175,13 @@ class CreatePostViewController: UIViewController, UITextViewDelegate, MKMapViewD
         return pin
     }
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if (newState == MKAnnotationViewDragState.Ending)
         {
-            var droppedAt = view.annotation.coordinate
-            print("Pin dropped at %f,%f")
-            print(droppedAt.latitude)
-            print(droppedAt.longitude);
+            var droppedAt = view.annotation!.coordinate
+            print("Pin dropped at %f,%f", terminator: "")
+            print(droppedAt.latitude, terminator: "")
+            print(droppedAt.longitude, terminator: "");
         }
     }
     

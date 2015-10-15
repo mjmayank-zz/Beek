@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class AppLauncherDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegate{
  
@@ -21,7 +22,7 @@ class AppLauncherDataSource : NSObject, UICollectionViewDataSource, UICollection
         manager.startUpdatingLocation()
         array = dict.allKeys as! [String]
         var indexes : [Int] = []
-        for i in reverse(0...array.count-1){
+        for i in Array((0...array.count-1).reverse()){
             let item : AnyObject = dict[array[i]]!
             let url : String = item["url_scheme"] as! String
             let myURL = NSURL(string: url)
@@ -47,10 +48,10 @@ class AppLauncherDataSource : NSObject, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var launch = PFObject(className: "AppLaunch")
+        let launch = PFObject(className: "AppLaunch")
         launch.setObject(array[indexPath.row], forKey: "app")
         launch.setObject(PFUser.currentUser()!, forKey: "user")
-        var geoPoint = PFGeoPoint(latitude: manager.location.coordinate.latitude, longitude: manager.location.coordinate.longitude)
+        let geoPoint = PFGeoPoint(latitude: manager.location!.coordinate.latitude, longitude: manager.location!.coordinate.longitude)
         launch.setObject(geoPoint, forKey: "location")
         
         if let vc = delegate{

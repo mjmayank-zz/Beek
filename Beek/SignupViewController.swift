@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class SignupViewController : UIViewController{
     @IBOutlet var usernameTextField: UITextField!
@@ -25,14 +26,14 @@ class SignupViewController : UIViewController{
     @IBAction func signupButtonPressed(sender: AnyObject) {
         if(passwordTextField.text == confirmPasswordTextField.text){
             var user = PFUser()
-            user.username = usernameTextField.text.lowercaseString
+            user.username = usernameTextField.text!.lowercaseString
             user.password = passwordTextField.text
-            user.setObject(firstNameTextField.text, forKey: "first_name")
-            user.setObject(lastNameTextField.text, forKey: "last_name")
-            user.setObject(emailTextField.text, forKey: "email")
+            user.setObject(firstNameTextField.text!, forKey: "first_name")
+            user.setObject(lastNameTextField.text!, forKey: "last_name")
+            user.setObject(emailTextField.text!, forKey: "email")
             user.signUpInBackgroundWithBlock({ (bool:Bool, error:NSError?) -> Void in
                 if((error) != nil){
-                    println(error)
+                    print(error)
                     var message = error!.userInfo as! [String: AnyObject]
                     var alert = UIAlertController(title: "Error", message: message["NSLocalizedDescription"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))

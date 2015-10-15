@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Parse
 
 class LoginViewController : UIViewController{
     @IBOutlet var usernameTextField: UITextField!
@@ -20,12 +21,12 @@ class LoginViewController : UIViewController{
     }
     
     @IBAction func loginButtonPressed(sender: AnyObject) {
-        PFUser.logInWithUsernameInBackground(usernameTextField.text.lowercaseString, password: passwordTextField.text) { (user:PFUser?, error:NSError?) -> Void in
+        PFUser.logInWithUsernameInBackground(usernameTextField.text!.lowercaseString, password: passwordTextField.text!) { (user:PFUser?, error:NSError?) -> Void in
             if(error == nil){
                 self.performSegueWithIdentifier("toFeed", sender: self)
             }
             else{
-                println(error)
+                print(error)
                 var message = error!.userInfo as! [String: AnyObject]
                 var alert = UIAlertController(title: "Error", message: message["NSLocalizedDescription"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))

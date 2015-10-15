@@ -8,6 +8,7 @@
 
 import UIKit
 import QuadratTouch
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let client = Client(clientID:       "I2J4JN5GIOMDNSFP02H3CWYTQ0L0CXMRTVRXSWVR3XRZCCJ2",
             clientSecret:   "H5MDABPQUUGLG25LEDYXH3JKBYIVGQMHALQ1VUAA2HKHSCLC",
             redirectURL:    "testapp123://foursquare")
-        var configuration = Configuration(client:client)
+        let configuration = Configuration(client:client)
         Session.setupSharedSessionWithConfiguration(configuration)
         
         //GoogleMaps API Integratrion
@@ -41,9 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var storyboardId = (PFUser.currentUser() != nil) ? "feedNavigationController" : "loginViewController";
-        var viewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier(storyboardId) as! UIViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboardId = (PFUser.currentUser() != nil) ? "feedNavigationController" : "loginViewController";
+        let viewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier(storyboardId) 
         
         self.window!.rootViewController = viewController;
         self.window!.makeKeyAndVisible();

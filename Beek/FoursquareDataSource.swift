@@ -25,7 +25,7 @@ class FoursquareView: NSObject, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("sidewaysCell", forIndexPath: indexPath) as! foursquareCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("sidewaysCell", forIndexPath: indexPath) as! foursquareCell
         cell.layer.masksToBounds = true
         cell.layer.cornerRadius = 6
         cell.layer.borderWidth=2.0;
